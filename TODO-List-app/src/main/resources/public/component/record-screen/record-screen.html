@@ -1,0 +1,47 @@
+<header-component current-page="{{$ctrl.recordSchema.name}}"> </header-component>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-9">
+            <record-add-component 
+                record-schema="$ctrl.recordSchema" 
+                record-service="$ctrl.recordService" 
+                on-save="$ctrl.addNewRecord(record)">
+            </record-add-component>
+            
+            <record-edit-component 
+                record-schema="$ctrl.recordSchema" 
+                record-service="$ctrl.recordService" 
+                selected-records="$ctrl.selectedRecords" 
+                existing-records = "$ctrl.records"
+                on-save="$ctrl.updateRecord(record)">
+            </record-edit-component>
+            
+            <record-export-component 
+                record-schema="$ctrl.recordSchema" 
+                records="$ctrl.records">
+            </record-export-component>
+            
+            <record-delete-component 
+                selected-records = "$ctrl.selectedRecords"
+                record-service = "$ctrl.recordService"
+                on-delete="$ctrl.updateRecords()">
+            </record-export-component>
+        </div>
+        <div class="col-xs-3">
+            <date-range-picker-component start-date="$ctrl.displayFrom"
+                end-date="$ctrl.displayTo"
+                on-update="$ctrl.updateDates(startDate, endDate)">
+            </date-range-picker-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <record-details-table-component
+                records="$ctrl.records"
+                record-schema="$ctrl.recordSchema"
+                selected-records="$ctrl.selectedRecords"
+                on-record-selected="$ctrl.selectedRecords = selectedRecords">
+            </record-details-table-component>
+        </div>
+    </div>
+</div>

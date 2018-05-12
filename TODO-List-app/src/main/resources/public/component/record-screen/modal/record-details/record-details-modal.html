@@ -1,0 +1,71 @@
+<!-- Modal for adding the record-->
+<div class="modal fade" tabindex="-1" role="dialog"
+    ng-attr-id="{{$ctrl.modalId}}">
+    <div class="modal-dialog  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">
+                    {{$ctrl.modalTitle}}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                  <form>
+                  <!--  For each field, create a labeled input bound to the record model we are creating.-->
+                  <div ng-repeat="field in $ctrl.recordSchema.fields">
+                      <div class="col-xs-4" ng-if="!field.generated">
+                          <div ng-class="field.type == 'boolean' ? 'checkbox' : 'form-group'"  >
+                            <label ng-attr-for="{{field.name}}">{{field.label}}</label>
+
+                                <!-- Handle default inputs -->
+                                <input class="form-control" 
+                                    ng-attr-type="{{field.type | schemaTypeToHtml5Type}}"
+                                    ng-model="$ctrl.record[field.name]"
+                                    ng-if="!field.typeahead && field.type.indexOf('date') == -1">
+                                    
+                                <!-- Handle inputs where a typeahead is warranted -->
+                                <input class="form-control" 
+                                    ng-attr-type="{{field.type | schemaTypeToHtml5Type}}"
+                                    ng-model="$ctrl.record[field.name]"
+                                    ng-if="field.typeahead"
+                                    uib-typeahead="val for val in $ctrl.typeaheadValues[field.name] | filter:$viewValue">
+                                
+                                <!-- Handle date types -->
+                                <p class="input-group"
+                                        ng-if="field.type.indexOf('date') > -1">
+                                    <input type="text" class="form-control" 
+                                        ng-attr-type="{{field.type}}"
+                                        ng-model="$ctrl.record[field.name]"
+                                        ng-model-options="{timezone: 'utc'}"
+                                        is-open="$ctrl.datepickerOpen[field.name]" 
+                                        uib-datepicker-popup >
+                                    <span class="input-group-btn" ng-if="field.type.indexOf('date') > -1">
+                                        <button type="button" class="btn btn-default" 
+                                            ng-click="$ctrl.datepickerOpen[field.name] = true">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                    
+                                </p>
+                          </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                    data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.formSaved()">
+                    {{$ctrl.isNewRecord? 'Add' : 'Save'}} {{$ctrl.recordSchema.name}} 
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

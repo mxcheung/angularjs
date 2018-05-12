@@ -1,0 +1,81 @@
+<header-component current-page="deposits-per-currency-per-date">
+</header-component>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-3">
+			<h3>Deposits10 - Historical (by currency)</h3>
+		</div>
+		<div class="col-xs-3 col-xs-offset-6">
+			<date-range-picker-component start-date="$ctrl.displayFrom"
+				end-date="$ctrl.displayTo"
+				on-update="$ctrl.updateDates(startDate, endDate)">
+			</date-range-picker-component>
+		</div>
+	</div>
+	<div class="row">
+		<form name="addTasks"
+			ng-controller="HeroesController as addNewTaskCtrl"
+			ng-submit="addTasks.$valid && addNewTaskCtrl.addTask(addNewTaskCtrl)"
+			autocomplete="off" novalidate>
+
+			<!-- PERFORM DATE -->
+			<fieldset class="form-group">
+				<label class="control-label">Scheduled Date</label>
+				<div ng-controller="DateTimePickerController"
+					ng-init="addNewTaskCtrl.performdate = now" class="container">
+					<datetimepicker min-date="minDate" hour-step="hourStep"
+						minute-step="minuteStep" ng-model="addNewTaskCtrl.performdate"
+						show-meridian="showMeridian" date-format="{{format}}"
+						date-options="dateOptions" date-disabled="disabled(date, mode)"
+						datepicker-append-to-body="false" readonly-date="false"
+						hidden-time="false" hidden-date="false" ng-required="true"
+						name="datetimepicker" show-spinners="true" readonly-time="false"
+						date-opened="dateOpened"> </datetimepicker>
+			</fieldset>
+
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>AlterEgo</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in names">
+							<td>{{ x.name }}</td>
+							<td>{{ x.alterEgo }}</td>
+						</tr>
+					<tbody>
+				</table>
+			</div>
+
+
+		</form>
+	</div>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th ng-repeat="currency in allCurrencies"
+					ng-attr-st-sort="{{currency}}">{{currency | uppercase}}</th>
+			</tr>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="record in table">
+
+				<td>{{record.date | date}}</td>
+				<td align="right" ng-repeat="currency in allCurrencies">{{
+					(record[currency] || 0) | currency }}</td>
+
+			</tr>
+		<tbody>
+
+
+	</table>
+
+
+</div>

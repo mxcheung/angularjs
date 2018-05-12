@@ -1,0 +1,14 @@
+<!-- Add record button -->
+<div class="record-action-button-group">
+    <div class="form-group">
+       <label id="delete-records-button" for="delete-records-button"> Delete selected records </label>
+       <button class="btn btn-danger" 
+               class="record-action-button" 
+               ng-disabled="$ctrl.selectedRecords.length == 0"
+               ng-click="$ctrl.doDelete()"
+               id="delete-records-button">
+            <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                Delete records
+        </button>
+    </div>
+</div>
