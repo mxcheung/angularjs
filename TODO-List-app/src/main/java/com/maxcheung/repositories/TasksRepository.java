@@ -19,11 +19,6 @@ import org.springframework.data.jpa.repository.Query;
 import com.maxcheung.models.Tasks;
 
 
-/**
- * 
- * @author Dimitri Vasiliev
- *
- */
 
 public interface TasksRepository extends JpaRepository<Tasks, Long> {
 

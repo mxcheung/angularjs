@@ -47,7 +47,29 @@ app.controller('HeroesController', function($scope, $http, $location,
 	 * 
 	 */
 	var string1 = "";
-	var deposits = {
+	var cashDeposits = HeroesService.getCashDeposits();
+	cashDeposits.then(function(response) {
+		$scope.cashDeposits = response.data;// don't forget "this" in the service
+		let deposits = $scope.cashDeposits ;
+		console.log("zzzz----");
+		var table = [];
+		for ( var date in deposits) {
+			console.log(date);
+			var row = {
+				date : new Date(date)
+			};
+			for ( var currency in deposits[date]) {
+				console.log(deposits[date][currency]);
+				row[currency] = deposits[date][currency];
+			}
+			table.push(row);
+		}
+		console.log(table);
+
+		$scope.table = table;
+	})
+	
+	var deposits2 = {
 		"2018-03-01" : {
 			aud : 112,
 			usd : 8672,
@@ -60,22 +82,6 @@ app.controller('HeroesController', function($scope, $http, $location,
 		}
 	};
 
-	console.log("zzzz----");
-	var table = [];
-	for ( var date in deposits) {
-		console.log(date);
-		var row = {
-			date : new Date(date)
-		};
-		for ( var currency in deposits[date]) {
-			console.log(deposits[date][currency]);
-			row[currency] = deposits[date][currency];
-		}
-		table.push(row);
-	}
-	console.log(table);
-
-	$scope.table = table;
 
 	$scope.allCurrencies = [ "aud", "cad", "jpy", "usd" ];
 	

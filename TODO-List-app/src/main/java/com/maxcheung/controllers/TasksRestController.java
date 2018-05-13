@@ -27,12 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.maxcheung.models.Tasks;
 import com.maxcheung.repositories.TasksRepository;
 
-/**
- * 
- * @author Dimitri Vasiliev
- *
- */
-
 @RestController
 @RequestMapping("/tasks")
 public class TasksRestController {

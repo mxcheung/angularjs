@@ -12,11 +12,6 @@
  */
 package com.maxcheung.models;
 
-/**
- * 
- * @author Dimitri Vasiliev
- *
- */
 public enum Priority {
     LOW,
     MEDIUM,

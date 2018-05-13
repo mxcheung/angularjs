@@ -6,7 +6,8 @@ var app = angular.module('ToDoListApp', [
 	])
 
 	//Define routes to cashmgmt web pages.
-	app	.config(function($routeProvider){
+	app
+	.config(function($routeProvider){
 				$routeProvider
 				.when('/',
 				{

@@ -23,11 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.maxcheung.models.Priority;
 
-/**
- * 
- * @author Dimitri Vasiliev
- *
- */
 
 @RestController
 public class TasksPriorityEnumRestController {
