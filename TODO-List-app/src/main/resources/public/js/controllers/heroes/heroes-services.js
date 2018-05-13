@@ -16,19 +16,13 @@ app.service('HeroesService', function($http) {
 		})
 	}
 
-	this.getCashDeposits = function() {
-		return $http({
-			method : 'GET',
-			url : 'http://localhost:8005/cashmgmt/deposits',
-			headers : {
-				'Content-Type' : 'application/x-www-form-urlencoded'
-			}
+	this.getCashDeposits = function(account) {
+	       return $http.get('http://localhost:8005/cashmgmt/deposits', {
+               params: {
+                   'account': account
+               }
+       });
 		
-		// set the headers so angular passing info as form data (not request
-		// payload)
-		}).then(function(data) {
-			return data;
-		})
 	}
 
 });

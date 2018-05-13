@@ -47,28 +47,6 @@ app.controller('HeroesController', function($scope, $http, $location,
 	 * 
 	 */
 	var string1 = "";
-	var cashDeposits = HeroesService.getCashDeposits();
-	cashDeposits.then(function(response) {
-		$scope.cashDeposits = response.data;// don't forget "this" in the service
-		let deposits = $scope.cashDeposits ;
-		console.log("zzzz----");
-		var table = [];
-		for ( var date in deposits) {
-			console.log(date);
-			var row = {
-				date : new Date(date)
-			};
-			for ( var currency in deposits[date]) {
-				console.log(deposits[date][currency]);
-				row[currency] = deposits[date][currency];
-			}
-			table.push(row);
-		}
-		console.log(table);
-
-		$scope.table = table;
-	})
-	
 	var deposits2 = {
 		"2018-03-01" : {
 			aud : 112,
@@ -82,33 +60,41 @@ app.controller('HeroesController', function($scope, $http, $location,
 		}
 	};
 
-
 	$scope.allCurrencies = [ "aud", "cad", "jpy", "usd" ];
-	
-/*
-	depositSummaryToTable = function depositSummaryToTable() {
-		var table = [];
-		for ( var date in this.depositSummaryRecords) {
-			// Note - can't use between here, between is exclusive.
-			if (moment(date).isSameOrAfter(this.displayFrom)
-					&& moment(date).isSameOrBefore(this.displayTo)) {
+
+	$scope.loadData = function() {
+		var singleSelectCCY = $scope.singleSelectCCY;
+		$scope.loadDataCCY(singleSelectCCY)
+	};
+
+
+	$scope.loadDataCCY = function(ccy) {
+		var cashDeposits = HeroesService.getCashDeposits(ccy);
+		cashDeposits.then(function(response) {
+			$scope.cashDeposits = response.data;// don't forget "this" in the
+												// service
+			let deposits = $scope.cashDeposits;
+			console.log("zzzz----");
+			var table = [];
+			for ( var date in deposits) {
+				console.log(date);
 				var row = {
 					date : new Date(date)
 				};
-				for ( var currency in this.depositSummaryRecords[date]) {
-					row[currency] = this.depositSummaryRecords[date][currency];
+				for ( var currency in deposits[date]) {
+					console.log(deposits[date][currency]);
+					row[currency] = deposits[date][currency];
 				}
-
 				table.push(row);
-
 			}
-		}
+			console.log(table);
 
-		table.sort(function(left, right) {
-			return left.date - right.date
-		});
+			$scope.table = table;
+		})
+	};
+	
+	$scope.singleSelectCCY = "USD";
+	$scope.loadData();
 
-		this.depositSummaryAsTable = table;
-	}
-*/
+	
 });

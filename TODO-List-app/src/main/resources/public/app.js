@@ -32,7 +32,7 @@ var app = angular.module('ToDoListApp', [
 				.when('/heroes',
 				{
 					controller: 'HeroesController',
-					templateUrl: '/views/heroes/heroes.html'
+					templateUrl: '/views/heroes/heroes7.html'
 				})
 				.when('/addTask',
 				{
