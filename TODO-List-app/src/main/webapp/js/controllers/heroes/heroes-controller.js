@@ -67,12 +67,12 @@ app.controller('HeroesController', function($scope, $http, $location,
 		$scope.loadDataCCY(singleSelectCCY)
 	};
 
-
 	$scope.loadDataCCY = function(ccy) {
 		var cashDeposits = HeroesService.getCashDeposits(ccy);
-		cashDeposits.then(function(response) {
+		cashDeposits
+		.then(function success(response) {
 			$scope.cashDeposits = response.data;// don't forget "this" in the
-												// service
+			// service
 			let deposits = $scope.cashDeposits;
 			console.log("zzzz----");
 			var table = [];
@@ -91,10 +91,15 @@ app.controller('HeroesController', function($scope, $http, $location,
 
 			$scope.table = table;
 		})
+		.catch(function error(rejection) {
+			// this function will be called when the request returned error
+			// status
+		        console.log("error:", rejection); 
+				$scope.dummytext = rejection.status;
+		});
 	};
-	
-	$scope.singleSelectCCY = "USD";
-	$scope.loadData();
 
-	
+	$scope.loadDataCCY("AUD");
+	$scope.dummytext = "hi THERE4";
+
 });

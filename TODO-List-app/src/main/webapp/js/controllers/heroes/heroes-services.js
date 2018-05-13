@@ -22,7 +22,6 @@ app.service('HeroesService', function($http) {
                    'account': account
                }
        });
-		
 	}
 
 });
