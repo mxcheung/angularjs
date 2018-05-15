@@ -12,13 +12,17 @@
  */
 package com.maxcheung.models;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Table;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "universityCourseSeatTable", "accounts"})
+@JsonPropertyOrder({ "id", "universityCourseSeatTable", "accounts", "rowTotal", "colTotal" })
 public class TableData {
 
 	private String id;
@@ -26,15 +30,42 @@ public class TableData {
 
 	private Table<String, String, Integer> accounts;
 
+	private Map<String, Integer> colTotal;
+	private Map<String, Integer> rowTotal;
+
 	public TableData() {
 		universityCourseSeatTable = ImmutableTable.<String, String, Integer>builder().put("Mumbai", "Chemical", 120)
 				.build();
-		accounts = ImmutableTable.<String, String, Integer>builder()
-				.put("Account1", "AUD", 120)
-				.put("Account1", "USD", 450)
-				.put("Account2", "GBP", 120)
-				.put("Account2", "JBP", 450)
-				.build();
+		accounts = ImmutableTable.<String, String, Integer>builder().put("Account1", "AUD", 120)
+				.put("Account1", "USD", 450).put("Account2", "AUD", 120).put("Account2", "GBP", 120)
+				.put("Account2", "JBP", 450).build();
+
+		colTotal = getColTotals();
+		rowTotal = getRowTotals();
+
+	}
+
+	private Map<String, Integer> getColTotals() {
+		Map<String, Integer> colTotal = new HashMap<String, Integer>();
+		Set<String> keys = accounts.columnKeySet();
+		for (String key : keys) {
+			Map<String, Integer> data = accounts.columnMap().get(key);
+			int sum = data.values().stream().mapToInt(Number::intValue).sum();
+			colTotal.put(key, sum);
+
+		}
+		return colTotal;
+	}
+
+	private Map<String, Integer> getRowTotals() {
+		Map<String, Integer> rowTotal = new HashMap<String, Integer>();
+		Set<String> rowkeys = accounts.rowKeySet();
+		for (String key : rowkeys) {
+			Map<String, Integer> data = accounts.rowMap().get(key);
+			int sum = data.values().stream().mapToInt(Number::intValue).sum();
+			rowTotal.put(key, sum);
+		}
+		return rowTotal;
 	}
 
 	public String getId() {
@@ -60,11 +91,21 @@ public class TableData {
 	public void setAccounts(Table<String, String, Integer> accounts) {
 		this.accounts = accounts;
 	}
-	
-	
-	
-	
-	
-	
+
+	public Map<String, Integer> getColTotal() {
+		return colTotal;
+	}
+
+	public void setColTotal(Map<String, Integer> colTotal) {
+		this.colTotal = colTotal;
+	}
+
+	public Map<String, Integer> getRowTotal() {
+		return rowTotal;
+	}
+
+	public void setRowTotal(Map<String, Integer> rowTotal) {
+		this.rowTotal = rowTotal;
+	}
 
 }

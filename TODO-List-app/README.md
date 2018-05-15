@@ -99,8 +99,19 @@ https://github.com/Dimi7ri/TODO-List-app
       "USD": 450
     },
     "Account2": {
+      "AUD": 120,
       "GBP": 120,
       "JBP": 450
     }
+  },
+  "rowTotal": {
+    "Account1": 570,
+    "Account2": 690
+  },
+  "colTotal": {
+    "AUD": 240,
+    "GBP": 120,
+    "USD": 450,
+    "JBP": 450
   }
 }
