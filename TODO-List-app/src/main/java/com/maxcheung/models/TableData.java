@@ -16,16 +16,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.data.util.Pair;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Table;
+import com.google.common.collect.Table.Cell;
+import com.google.common.collect.Tables;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "id", "universityCourseSeatTable", "accounts", "colHeader","rowTotal", "colTotal" })
-public class TableData {
+public class TableData<C> {
 
 	private String id;
 	private Table<String, String, Integer> universityCourseSeatTable;
@@ -39,10 +39,13 @@ public class TableData {
 	public TableData() {
 		
 		
-		Pair<String, String> x;
-		
-		universityCourseSeatTable = ImmutableTable.<String, String, Integer>builder().put("Mumbai", "Chemical", 120)
+		Cell<String, String, Integer> cell = Tables.immutableCell("Mumbai", "Chemical", 120);
+		universityCourseSeatTable = ImmutableTable.<String, String, Integer>builder().put(cell)
 				.build();
+		
+		
+		
+	
 		accounts = ImmutableTable.<String, String, Integer>builder().put("Account1", "AUD", 120)
 				.put("Account1", "USD", 450).put("Account2", "AUD", 120).put("Account2", "GBP", 120)
 				.put("Account2", "JBP", 450).build();
