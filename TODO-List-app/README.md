@@ -104,6 +104,12 @@ https://github.com/Dimi7ri/TODO-List-app
       "JBP": 450
     }
   },
+  "colHeader": [
+    "AUD",
+    "USD",
+    "GBP",
+    "JBP"
+  ],
   "rowTotal": {
     "Account1": 570,
     "Account2": 690

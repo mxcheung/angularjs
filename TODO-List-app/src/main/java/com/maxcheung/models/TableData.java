@@ -16,13 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.data.util.Pair;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.common.collect.ImmutableTable;
 import com.google.common.collect.Table;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "id", "universityCourseSeatTable", "accounts", "rowTotal", "colTotal" })
+@JsonPropertyOrder({ "id", "universityCourseSeatTable", "accounts", "colHeader","rowTotal", "colTotal" })
 public class TableData {
 
 	private String id;
@@ -30,10 +32,15 @@ public class TableData {
 
 	private Table<String, String, Integer> accounts;
 
+	private Set<String> colHeader;
 	private Map<String, Integer> colTotal;
 	private Map<String, Integer> rowTotal;
 
 	public TableData() {
+		
+		
+		Pair<String, String> x;
+		
 		universityCourseSeatTable = ImmutableTable.<String, String, Integer>builder().put("Mumbai", "Chemical", 120)
 				.build();
 		accounts = ImmutableTable.<String, String, Integer>builder().put("Account1", "AUD", 120)
@@ -42,6 +49,7 @@ public class TableData {
 
 		colTotal = getColTotals();
 		rowTotal = getRowTotals();
+		colHeader = accounts.columnKeySet();
 
 	}
 
@@ -106,4 +114,13 @@ public class TableData {
 		this.rowTotal = rowTotal;
 	}
 
+	public Set<String> getColHeader() {
+		return colHeader;
+	}
+
+	public void setColHeader(Set<String> colHeader) {
+		this.colHeader = colHeader;
+	}
+
+	
 }
