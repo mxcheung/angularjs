@@ -83,3 +83,24 @@ Note that I use **JpaRepository** interface in this project..
 
 
 https://github.com/Dimi7ri/TODO-List-app
+
+
+
+{
+  "id": "1L",
+  "universityCourseSeatTable": {
+    "Mumbai": {
+      "Chemical": 120
+    }
+  },
+  "accounts": {
+    "Account1": {
+      "AUD": 120,
+      "USD": 450
+    },
+    "Account2": {
+      "GBP": 120,
+      "JBP": 450
+    }
+  }
+}

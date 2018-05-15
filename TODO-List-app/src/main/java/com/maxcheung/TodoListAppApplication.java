@@ -15,8 +15,12 @@ package com.maxcheung;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.guava.GuavaModule;
 
 @Configuration
 @ComponentScan
@@ -26,8 +30,13 @@ public class TodoListAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TodoListAppApplication.class, args);
-		
-	}
-	
-}
 
+	}
+
+	@Bean
+	ObjectMapper customizeJacksonConfiguration() {
+		ObjectMapper om = new ObjectMapper();
+		om.registerModule(new GuavaModule());
+		return om;
+	}
+}
