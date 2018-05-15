@@ -47,13 +47,11 @@ public class TableData {
 
 	private Map<String, Integer> getColTotals() {
 		Map<String, Integer> colTotal = new HashMap<String, Integer>();
-		Set<String> keys = accounts.columnKeySet();
-		for (String key : keys) {
-			Map<String, Integer> data = accounts.columnMap().get(key);
-			int sum = data.values().stream().mapToInt(Number::intValue).sum();
-			colTotal.put(key, sum);
+		accounts.columnKeySet().forEach(k -> {
+			Map<String, Integer> data = accounts.columnMap().get(k);
+			colTotal.put(k, data.values().stream().mapToInt(Number::intValue).sum());
+		});
 
-		}
 		return colTotal;
 	}
 
@@ -62,7 +60,7 @@ public class TableData {
 		Set<String> rowkeys = accounts.rowKeySet();
 		for (String key : rowkeys) {
 			Map<String, Integer> data = accounts.rowMap().get(key);
-			int sum = data.values().stream().mapToInt(Number::intValue).sum();
+			int sum = data.values().stream().reduce(0, Integer::sum);
 			rowTotal.put(key, sum);
 		}
 		return rowTotal;
