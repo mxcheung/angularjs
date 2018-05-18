@@ -83,8 +83,14 @@ Note that I use **JpaRepository** interface in this project..
 
 
 https://github.com/Dimi7ri/TODO-List-app
+https://medium.com/@gustavo.ponce.ch/spring-boot-jquery-datatables-a2e816e2b5e9
 
+https://www.js-tutorials.com/javascript-tutorial/angularjs-smart-table-example-demos/
 
+https://www.js-tutorials.com/javascript-tutorial/angularjs-smart-table-example-demos/
+https://embed.plnkr.co/lu30E4WYjCSuFlayECxF/
+https://github.com/lorenzofox3/Smart-Table/issues/786
+http://lorenzofox3.github.io/smart-table-website/
 
 {
   "id": "1L",

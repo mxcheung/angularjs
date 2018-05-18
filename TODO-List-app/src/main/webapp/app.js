@@ -2,7 +2,12 @@ var app = angular.module('ToDoListApp', [
 	'ngRoute',
 	'ngResource',
 	'ui.bootstrap', 
-	'ui.bootstrap.datetimepicker'
+	'ui.bootstrap.datetimepicker',
+	'toDoListApp.w3TestDirective',
+	'myApp.tableDirective',
+	'myApp.hightableDirective',
+	'tableExample',
+	'myDirectives'
 	])
 
 	//Define routes to cashmgmt web pages.
@@ -18,6 +23,11 @@ var app = angular.module('ToDoListApp', [
 				{
 					controller: 'HelloController',
 					templateUrl: '/views/hello/hello.html'
+				})
+				.when('/hightable',
+				{
+					controller: 'HighTableController',
+					templateUrl: '/views/hightable/hightable.html'
 				})
 				.when('/there',
 				{

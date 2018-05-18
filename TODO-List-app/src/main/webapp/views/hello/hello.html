@@ -1,4 +1,19 @@
 
 <div ng-controller="HelloController">
-	<h1>blah {{greeting}}</h1>
+	<h1>directive blah {{greeting}}</h1>
+</div>
+
+<w3-test-directive></w3-test-directive>
+<my-awesome-directive></my-awesome-directive>
+<table-directive data="data"></table-directive>
+<table-directive data="data1"></table-directive>
+
+<hightable-directive></hightable-directive>
+
+
+
+<div ng-app="tableExample">
+  <div ng-controller="Ctrl">
+         <h2>This table uses columns defined in controller</h2> 
+        <table my-table options="options"></table>
 </div>
