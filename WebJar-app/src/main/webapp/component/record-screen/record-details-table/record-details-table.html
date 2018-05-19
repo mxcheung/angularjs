@@ -1,0 +1,53 @@
+<table st-table="tableData" st-safe-src="$ctrl.records" class="table table-striped"
+    show-filter="true">
+    <thead>
+        <tr>
+            <th>
+                Selected
+            </th>
+            <th ng-repeat="(index, field) in $ctrl.recordSchema.fields"
+            ng-attr-st-sort="{{field.name}}">
+                {{field.label}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="record in tableData" 
+            ng-mouseDown="$ctrl.onRowSelectStart(record)" 
+            ng-mouseOver="$ctrl.onRowSelectMouseover()" 
+            ng-mouseUp="$ctrl.onRowSelectStop(record)"
+            ng-class="{'selected': $ctrl.rowIsSelected(record)}">
+
+            <td>
+                <div class="text-center">
+                    <label>
+                        <input type="checkbox" 
+                               ng-model="$ctrl._selectedRecordsInternal[$ctrl.getRecordId(record)]"
+                               ng-change="$ctrl.onRecordSelected({'selectedRecords': $ctrl.getSelectedRecords()})"> 
+                    </label>
+                </div>
+            </td>
+            
+            <td ng-repeat="(index, field) in $ctrl.recordSchema.fields">
+                <!-- Amounts need to be formatted as currencies -->
+                <span ng-if="field.type == 'amount'" ng-bind-html="record[field.name] | currencyFormat:record[field.currencyFieldName]:symbol:''">
+                </span>
+                <span ng-if="field.type == 'percent' && record[field.name] != null"> 
+                   {{record[field.name] * 100 | number}}%
+                </span>
+                <span ng-if="field.type != 'amount' && field.type != 'percent'">
+                    {{record[field.name]}}
+                </span>
+            </td>
+            
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td ng-attr-colspan="{{$ctrl.recordSchema.fields.length + 1}}" class="text-center">
+                <div st-pagination st-template="app/component/shared/pagination.html" st-items-by-page="$ctrl.itemsByPage"
+                   a st-displayed-pages="20"></div>
+            </td>
+        </tr>
+    </tfoot>
+</table>

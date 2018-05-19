@@ -1,0 +1,39 @@
+<div class="row">
+    <form>
+        <div class="col-md-6">
+            <label for="startDatePicker"> From </label>
+            <p class="input-group">
+                <input type="text" name="startDatePicker" id="startDatePicker" class="form-control"
+                    uib-datepicker-popup 
+                    ng-model="$ctrl.startDate"
+                    ng-model-options="{timezone: 'utc'}"
+                    ng-change="$ctrl.datesUpdated()"
+                    is-open="startDatePickerOpen" ng-required="true"
+                    close-text="Close" /> <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" 
+                        ng-click="startDatePickerOpen = 'true'">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+        <div class="col-md-6">
+            <label for="endDatePicker"> To </label>
+            <p class="input-group">
+                <input type="text" class="form-control"
+                    id="endDatePicker" name="endDatePicker"
+                    uib-datepicker-popup 
+                    ng-model="$ctrl.endDate"
+                    ng-model-options="{timezone: 'utc'}"
+                    ng-change="$ctrl.datesUpdated()"
+                    is-open="endDatePickerOpen" ng-required="true"
+                    close-text="Close" /> <span class="input-group-btn">
+                    <button type="button" class="btn btn-default"
+                        ng-click="endDatePickerOpen = 'true'">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+            </p>
+        </div>
+    </form>
+</div>

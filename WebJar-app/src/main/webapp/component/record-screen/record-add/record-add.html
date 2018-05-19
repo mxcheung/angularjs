@@ -1,0 +1,21 @@
+<!-- Add record button -->
+<div class="record-action-button-group">
+    <div class="form-group">
+        <label id="addDepositButtonLabel" ng-attr-for="{{$ctrl.modalId}}-button"> Add a new 
+            {{$ctrl.recordSchema.name}}</label>
+        <button class="btn btn-success" class="record-action-button"
+            ng-attr-id="{{$ctrl.modalId}}-button"
+            data-toggle="modal" ng-attr-data-target="#{{$ctrl.modalId}}">
+            <span class="glyphicon glyphicon-plus"></span> New
+            {{$ctrl.recordSchema.name}}
+        </button>
+    </div>
+</div>
+
+<!-- Modal for adding the record-->
+<record-details-modal-component
+    record-schema = "$ctrl.recordSchema"
+    record-service = "$ctrl.recordService"
+    modal-id = "$ctrl.modalId"
+    on-save = "$ctrl.onSave({'record': record})"> 
+</record-details-modal-component>

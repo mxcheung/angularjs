@@ -1,0 +1,47 @@
+<header-component current-page="deposits-per-currency-per-date"> </header-component>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-3">
+            <h3> Deposits - Historical (by currency) </h3>
+        </div>
+        <div class="col-xs-3 col-xs-offset-6">
+            <date-range-picker-component start-date="$ctrl.displayFrom"
+                end-date="$ctrl.displayTo"
+                on-update="$ctrl.updateDates(startDate, endDate)">
+            </date-range-picker-component>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table st-table="tableData" st-safe-src="$ctrl.depositSummaryAsTable" class="table table-striped"
+                   show-filter="true">
+            <thead>
+                <tr>
+                    <th st-sort="date" st-sort="date"> Date </th>
+                    <th ng-repeat="currency in $ctrl.allCurrencies"
+                    ng-attr-st-sort="{{currency}}" >
+                        {{currency}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="record in tableData">
+                    <td>{{record.date | date}}</td> 
+                    <td ng-repeat="currency in $ctrl.allCurrencies">
+                        <span ng-bind-html="(record[currency] || 0) | currencyFormat:currency:symbol"> </span> 
+                    </td>
+                    
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="13" class="text-center">
+                        <div st-pagination st-template="app/component/shared/pagination.html" st-items-by-page="$ctrl.itemsByPage"
+                           a st-displayed-pages="20"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+    </div>
+</div>

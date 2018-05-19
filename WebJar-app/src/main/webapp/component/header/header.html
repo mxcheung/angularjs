@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand"> <img class="abn-logo"
+                src="./img/aac_logo.png" alt="ABN Amro Clearing" />
+            </a>
+            <strong class="navbar-text">Cash Management</strong>
+        </div>
+        <div class="navbar-section">
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-class="{'active': $ctrl.currentPage == 'transaction'}"><a href="./#!/transactions">Transactions</a></li>
+                <li ng-class="{'active': $ctrl.currentPage == 'deposit'}"><a href="./#!/deposits">Deposits</a></li>
+                <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    Reports <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li ng-class="{'active': $ctrl.currentPage == 'deposits-per-currency-per-date'}">
+                        <a href="./#!/reports/deposits-per-currency-per-date">Deposits by currency</a>
+                    </li>
+                  </ul>
+                </li>
+                <li><a href="logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

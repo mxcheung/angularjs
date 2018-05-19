@@ -1,0 +1,11 @@
+<!-- Add record button -->
+<div class="record-action-button-group">
+    <div class="form-group">
+       <label id="addDepositButtonLabel" for="export-records-button"> Export date range to Excel </label>
+       <button class="btn btn-primary" class="record-action-button" id="export-records-button"
+            ng-csv="$ctrl.records" filename="exported-records-cash-management.csv">
+            <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                Export records to Excel
+        </button>
+    </div>
+</div>
