@@ -3,9 +3,11 @@ var app = angular.module('ToDoListApp', [
 	'ngResource',
 	'ui.bootstrap', 
 	'ui.bootstrap.datetimepicker',
+	'chart.js',
 	'toDoListApp.w3TestDirective',
 	'myApp.tableDirective',
 	'myApp.hightableDirective',
+	'myApp.smartchartDirective',
 	'myApp.smarttableDirective',
 	'tableExample',
 	'myDirectives'
@@ -24,6 +26,16 @@ var app = angular.module('ToDoListApp', [
 				{
 					controller: 'HelloController',
 					templateUrl: '/views/hello/hello.html'
+				})
+				.when('/smartchart',
+				{
+					controller: 'SmartChartController',
+					templateUrl: '/views/smartchart/smartchart.html'
+				})
+				.when('/smartchartfinancial',
+				{
+					controller: 'SmartChartFinancialController',
+					templateUrl: '/views/smartchartfinancial/smartchartfinancial.html'
 				})
 				.when('/smarttable',
 				{
