@@ -1,0 +1,159 @@
+div.horizontal-scroll {
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: visible;
+}
+
+div.currency-detail-block {
+    display: table-cell;
+    vertical-align: top;
+    border-right: 1px solid #eee;
+}
+
+tr.previous-reporting-date td.valueDate{
+    color: red;
+    font-weight: bold;
+}
+
+div.panel.opposite-party-display-panel div.panel-heading {
+    background-color: #009286;
+    color: white;
+    font-weight: bolder;
+}
+
+button.update-all-currencies-button {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.btn.btn-submit-one-currency {
+    background-color: #006480;
+    color: white;
+}
+
+.btn.btn-submit-one-currency:hover {
+    background-color: #0a7896;
+}
+
+div.record-action-button-group {
+    /* margin-left: 5px; */
+    display: inline-block;
+    margin-right: 30px;
+    padding: 5px;
+}
+
+div.record-action-button-group button.btn{
+    display: block;
+}
+
+div.record-action-button-group label:after{
+    clear: both;
+    content: "";
+}
+
+.btn.btn-submit-one-currency:active {
+    background-color: #08566b;
+}
+
+.btn.btn-submit-all-currencies {
+    background-color: #49a2be;
+    color: white;
+}
+
+.btn.btn-submit-all-currencies:hover {
+    background-color: #71a0af;
+}
+
+.btn.btn-submit-all-currencies:active {
+    background-color: #86b2c0;
+}
+
+img.abn-logo {
+    height: 40px;
+    width: 40px;
+    margin-top: -10px;
+    margin-left: -10px;
+    margin-right: -25px;
+}
+
+.st-sort-ascent:before {
+    content: '\25B2';
+}
+.st-sort-descent:before {
+    content: '\25BC';
+}
+
+.tr.selected {
+	background-color: rgba(252, 205, 5, 0.2);
+}
+
+.navbar-section-title {
+	margin-left: 20px;
+	margin-right: 6px;
+}
+.divider-vertical {
+	height: 50px;
+	margin: 0 9px;
+	border-left: 1px solid #cfcfcf;
+	border-right: 1px solid #fafafa;
+}
+.fixed-width-cell{
+    min-width:125px; /* force table to be oversize */
+}
+
+.fixed-column1{
+    min-width:150px; /* force table to be oversize */
+}
+.fixed-column2{
+    min-width:80px; /* force table to be oversize */
+}
+
+.ng-table-scrollcontainer {
+    width: 87%; 
+    overflow-x:scroll;  
+    margin-left:230px; 
+    overflow-y:visible;
+}
+.ng-table-fixedcolumn1 {
+    position:absolute; 
+    width:150px; 
+    left:0;
+    top:auto;
+}
+.ng-table-fixedcolumn2 {
+    position:absolute; 
+    width:80px; 
+    left:150px;
+    top:auto;
+}
+.multiselect-parent .dropdown-toggle {
+  width: 200px;
+}
+
+.multiselect-parent .dropdown-menu {
+  width: 200px;
+}
+.red-text {
+	color:red;
+	font-weight: bold;
+}
+.cashmgmt-small-modal-window .modal-dialog {
+  width: 35%;
+}
+
+.cashmgmt-large-modal-window .modal-dialog {
+  width: 80%;
+}
+.ops-column1 {
+	min-width:28px;
+}
+.cash-balance-accountcolumn {
+	width:280px;
+	text-align: left;
+}
+.fixed-width-date {
+	min-width:80px;
+}
+.fixed-width-account {
+	min-width:80px;
+}
