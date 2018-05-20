@@ -1,0 +1,15 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<div  ng-controller="HighChartPieController" id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+
+ <hc-pie-chart title="Browser usage" data="pieData">Placeholder for pie chart</hc-pie-chart>
+ 
+ <hc-pie-chart id="containerpie" title="Sales Report" data="pieData2">Placeholder for pie chart</hc-pie-chart>
+ 
+ <pre id="preview"><div ng-bind="pieData2csv"></div><pre>
+ 
+ <div  ng-controller="HighChartPieController" id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+ 

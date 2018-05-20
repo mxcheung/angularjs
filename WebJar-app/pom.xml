@@ -138,6 +138,21 @@
 			<artifactId>webjars-locator</artifactId>
 			<version>0.34</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.webjars/highcharts -->
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>highcharts</artifactId>
+		    <version>6.1.0</version>
+		</dependency>
+
+				
+		<!-- https://mvnrepository.com/artifact/org.webjars.npm/angular-chartist.js -->
+		<dependency>
+		    <groupId>org.webjars.npm</groupId>
+		    <artifactId>angular-chartist.js</artifactId>
+		    <version>3.3.9</version>
+		</dependency>
 
 <!-- 
 

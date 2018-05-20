@@ -5,6 +5,7 @@ var app = angular.module('ToDoListApp', [
 	'ui.bootstrap.datetimepicker',
 	'chart.js',
 	'toDoListApp.w3TestDirective',
+	'myApp.highchartDirectives',
 	'myApp.tableDirective',
 	'myApp.hightableDirective',
 	'myApp.smartchartDirective',
@@ -27,10 +28,20 @@ var app = angular.module('ToDoListApp', [
 					controller: 'HelloController',
 					templateUrl: '/views/hello/hello.html'
 				})
+				.when('/chartist',
+				{
+					controller: 'ChartistController',
+					templateUrl: '/views/chartist/chartist.html'
+				})
 				.when('/smartchart',
 				{
 					controller: 'SmartChartController',
 					templateUrl: '/views/smartchart/smartchart.html'
+				})
+				.when('/smartchartpie',
+				{
+					controller: 'SmartChartPieController',
+					templateUrl: '/views/smartchartpie/smartchartpie.html'
 				})
 				.when('/smartchartfinancial',
 				{
@@ -41,6 +52,21 @@ var app = angular.module('ToDoListApp', [
 				{
 					controller: 'SmartTableController',
 					templateUrl: '/views/smarttable/smarttable.html'
+				})
+				.when('/highchartfinancial',
+				{
+					controller: 'HighChartFinancialController',
+					templateUrl: '/views/highchartfinancial/highchartfinancial.html'
+				})
+				.when('/highstock',
+				{
+					controller: 'HighStockController',
+					templateUrl: '/views/highstock/highstock.html'
+				})
+				.when('/highchartpie',
+				{
+					controller: 'HighChartPieController',
+					templateUrl: '/views/highchartpie/highchartpie.html'
 				})
 				.when('/hightable',
 				{

@@ -157,3 +157,45 @@ img.abn-logo {
 @media print {
 .page-break { display: block; page-break-before: always; }
 }
+
+
+
+body {
+  background-color: #222;
+  padding: 20px;
+  font-family: arial;
+}
+
+#chart5 {
+  border-radius: 10px;
+  padding-top: 10px;
+}
+
+#chart6 {
+  background-color: lightpink;
+  border-radius: 10px;
+  padding-top: 10px;
+}
+#title_1{
+  color: dodgerblue;    
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+#title_2{
+  color: lightpink;    
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+
+#container {
+    height: 300px;
+    margin-top: 2em;
+}
+pre {
+    border: 1px solid silver;
+    border-radius: 0.5em;
+    padding: 1em;
+    color: green;
+}

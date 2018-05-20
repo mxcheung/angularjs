@@ -5,6 +5,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/datetimepicker.css"/>		
     <link rel="stylesheet" href="css/app.css"/>		
+	<link rel="stylesheet"href="webjars/chartist/0.9.8/dist/chartist.min.css">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
@@ -17,7 +18,15 @@
 	<script src="webjars/angular-smart-table/2.1.8/dist/smart-table.min.js"></script>	
 	<script src="webjars/chartjs/2.7.2/Chart.min.js"></script>	
 	<script src="webjars/angular-chart.js/1.1.1/angular-chart.min.js"></script>	
-	
+	<script src="webjars/highcharts/6.1.0/highstock.js"></script>
+	<script src="webjars/highcharts/6.1.0/modules/exporting.js"></script>	
+	<script src="https://highcharts.github.io/export-csv/export-csv.js"></script>
+	<script src="webjars/chartist/0.9.8/dist/chartist.min.js"></script>
+
+<!-- 
+	<script src="webjars/highcharts/6.1.0/highcharts.js"></script>
+ -->
+
 </head>
 <body>
     <div ng-view ></div>
@@ -29,6 +38,7 @@
     <script type="text/javascript" src="js/directives/w3TestDirective.js"></script>
     <script type="text/javascript" src="js/directives/myDirectives.js"></script>
     <script type="text/javascript" src="js/directives/tableDirectives.js"></script>
+    <script type="text/javascript" src="js/directives/highchartDirectives.js"></script>
     <script type="text/javascript" src="js/directives/hightableDirectives.js"></script>
     <script type="text/javascript" src="js/directives/smartchartDirectives.js"></script>
     <script type="text/javascript" src="js/directives/smarttableDirectives.js"></script>
@@ -36,8 +46,14 @@
     <script type="text/javascript" src="js/controllers/DateTimePickerController.js"></script>
     <script type="text/javascript" src="js/controllers/hello/hello-controller.js"></script>
     <script type="text/javascript" src="js/controllers/smartchart/smartchart-controller.js"></script>
+    <script type="text/javascript" src="js/controllers/smartchartpie/smartchartpie-controller.js"></script>
     <script type="text/javascript" src="js/controllers/smartchartfinancial/smartchartfinancial-controller.js"></script>
     <script type="text/javascript" src="js/controllers/smarttable/smarttable-controller.js"></script>
+    <script type="text/javascript" src="js/controllers/chartist/chartist-controller.js"></script>
+    <script type="text/javascript" src="js/controllers/highstock/highstock-controller.js"></script>
+    <script type="text/javascript" src="js/controllers/highstock/highstock-services.js"></script>
+    <script type="text/javascript" src="js/controllers/highchartfinancial/highchartfinancial-controller.js"></script>
+    <script type="text/javascript" src="js/controllers/highchartpie/highchartpie-controller.js"></script>
     <script type="text/javascript" src="js/controllers/hightable/high-table-controller.js"></script>
     <script type="text/javascript" src="js/controllers/there/there-controller.js"></script>
     <script type="text/javascript" src="js/controllers/demo/demo-controller.js"></script>
