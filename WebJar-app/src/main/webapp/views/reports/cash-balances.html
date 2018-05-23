@@ -1,0 +1,32 @@
+
+<h4>{{report.sections}}</h4>
+<table st-table="display_records"  st-safe-src="employees" class="table table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th ng-repeat="colheader in report.headers">{{colheader | uppercase}}</th>
+		</tr>
+	</thead>
+	<tbody ng-repeat="(sectionKey, section) in report.sections">
+	 	<!-- section1 -->
+		<tr	st-select-row="row" st-select-mode="multiple" ng-repeat="(rowKey, row) in section.table">
+			<td>{{rowKey}}</td>
+			<td ng-repeat="colheader in report.headers">	
+				{{ ( row[colheader].value || 0 ) |  number:0   }} 
+			</td>
+			<td>
+			    {{ (section.rowTotals[rowKey].value || 0) | number:0 }}
+			 </td>
+		</tr>
+		<tr>
+			<td><strong>Total {{sectionKey}}</strong></td>
+			<td ng-repeat="colheader in report.headers" >						
+			    {{ ( section.columnTotals[colheader].value || 0) | number:0  }}						
+			</td>
+			<td>
+				 {{ ( section.grandTotal.value || 0) | number:0 }} 
+			</td>
+		</tr>
+	</tbody>
+	
+</table>
