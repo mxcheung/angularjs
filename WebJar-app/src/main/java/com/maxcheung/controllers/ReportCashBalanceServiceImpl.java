@@ -86,13 +86,14 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 		Set<String> rowKeys = table.rowKeySet();
 		Map<String, ReportValue> rowTotals = new HashMap<String, ReportValue>();
 		for (String rowKey : rowKeys) {
-			ReportValue total = new ReportValue();
-			Collection<ReportValue> values = table.rowMap().get(rowKey).values();
-			for (ReportValue value : values) {
-				total.setValue(total.getValue().add(value.getValue()));
-			}
+	//		ReportValue total = new ReportValue();
+	//		Collection<ReportValue> values = table.rowMap().get(rowKey).values();
+	//		for (ReportValue value : values) {
+	//			total.setValue(total.getValue().add(value.getValue()));
+	//		}
 
-			rowTotals.put(rowKey, total);
+//			rowTotals.put(rowKey, total);
+			rowTotals.put(rowKey, getGrandTotal(table.row(rowKey)));
 		}
 		return rowTotals;
 	}
@@ -101,12 +102,12 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 		Set<String> columnKeys = table.columnKeySet();
 		Map<String, ReportValue> columnTotals = new HashMap<String, ReportValue>();
 		for (String columnKey : columnKeys) {
-			ReportValue total = new ReportValue();
-			Collection<ReportValue> values = table.columnMap().get(columnKey).values();
-			for (ReportValue value : values) {
-				total.setValue(total.getValue().add(value.getValue()));
-			}
-			columnTotals.put(columnKey, total);
+//			ReportValue total = new ReportValue();
+//			Collection<ReportValue> values = table.columnMap().get(columnKey).values();
+//			for (ReportValue value : values) {
+//				total.setValue(total.getValue().add(value.getValue()));
+//			}
+			columnTotals.put(columnKey, getGrandTotal(table.column(columnKey)));
 		}
 		return columnTotals;
 	}
