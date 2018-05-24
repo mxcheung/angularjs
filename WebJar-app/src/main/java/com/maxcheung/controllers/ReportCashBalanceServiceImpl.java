@@ -145,18 +145,18 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 	
 	
 
-	private ReportTable createReport(Set<String> headers, Set<String> sections, List<CellValue> origTxns) {
+	private ReportTable createReport(Set<String> headers, Set<String> sections, List<CellValue> txns) {
 		ReportTable accountCashBalanceReportBase = new ReportTable();
 		accountCashBalanceReportBase.setHeaders(headers);
-		
-		accountCashBalanceReportBase.setSections(getSections());
+		accountCashBalanceReportBase.setSections(getSections(sections,txns ));
 		return accountCashBalanceReportBase;
 	}
 
 
-	private ReportSection createSection() {
+	private ReportSection createSection(String section,  List<CellValue> txns) {
 		ReportSection moneyTable = new ReportSection();
 		Table<String, String, CellValue> table = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
+		// populate table
 		CellValue value = new CellValue();
 		value.setValue(BigDecimal.TEN);
 		CellValue value1 = new CellValue();
@@ -171,10 +171,13 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 		return moneyTable;
 	}
 
-	private Map<String, ReportSection> getSections() {
-		Map<String, ReportSection> sections = new LinkedHashMap<>();
-		sections.put("USD", createSection());
-		return sections;
+	private Map<String, ReportSection> getSections(Set<String> sections,  List<CellValue> txns) {
+		Map<String, ReportSection> sectionmap = new LinkedHashMap<>();
+		for (String section : sections) {
+			List<CellValue> filteredTxns =  txns; 
+			sectionmap.put("USD", createSection(section, filteredTxns));
+		}
+		return sectionmap;
 	}
 	
 	
