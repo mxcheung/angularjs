@@ -7,35 +7,35 @@ import com.google.common.collect.Table;
 
 public class ReportSection  {
 
-	private Table<String, String, ReportValue> table;
+	private Table<String, String, CellValue> table;
 
-	private  Map<String, ReportValue> rowTotals;
+	private  Map<String, CellValue> rowTotals;
 	
-	private Map<String, ReportValue> columnTotals;
+	private Map<String, CellValue> columnTotals;
 	
-	private ReportValue grandTotal;
+	private CellValue grandTotal;
 
-	public Table<String, String, ReportValue> getTable() {
+	public Table<String, String, CellValue> getTable() {
 		return table;
 	}
 
-	public void setTable(Table<String, String, ReportValue> table) {
+	public void setTable(Table<String, String, CellValue> table) {
 		this.table = table;
 	}
 
-	public Map<String, ReportValue> getRowTotals() {
+	public Map<String, CellValue> getRowTotals() {
 		return rowTotals;
 	}
 
-	public void setRowTotals(Map<String, ReportValue> rowTotals) {
+	public void setRowTotals(Map<String, CellValue> rowTotals) {
 		this.rowTotals = rowTotals;
 	}
 
-	public Map<String, ReportValue> getColumnTotals() {
+	public Map<String, CellValue> getColumnTotals() {
 		return columnTotals;
 	}
 
-	public void setColumnTotals(Map<String, ReportValue> columnTotals) {
+	public void setColumnTotals(Map<String, CellValue> columnTotals) {
 		this.columnTotals = columnTotals;
 	}
 	
@@ -48,11 +48,11 @@ public class ReportSection  {
 		return table.columnKeySet();
 	}
 
-	public ReportValue getGrandTotal() {
+	public CellValue getGrandTotal() {
 		return grandTotal;
 	}
 
-	public void setGrandTotal(ReportValue grandTotal) {
+	public void setGrandTotal(CellValue grandTotal) {
 		this.grandTotal = grandTotal;
 	}
 	
