@@ -199,3 +199,16 @@ pre {
     padding: 1em;
     color: green;
 }
+
+
+chart{
+    display:none;
+    width:400px;
+    height:200px;
+}
+
+flotchart{
+    display:none;
+    width:400px;
+    height:200px;
+}

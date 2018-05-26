@@ -1,0 +1,1 @@
+http://webapplayers.com/inspinia_admin-v2.5/graph_flot.html

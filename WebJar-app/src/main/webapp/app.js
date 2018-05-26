@@ -10,6 +10,7 @@ var app = angular.module('ToDoListApp', [
 	'myApp.hightableDirective',
 	'myApp.smartchartDirective',
 	'myApp.smarttableDirective',
+	'myApp.flotDirective',
 	'tableExample',
 	'myDirectives'
 	])
@@ -67,6 +68,11 @@ var app = angular.module('ToDoListApp', [
 				{
 					controller: 'HighReportController',
 					templateUrl: '/views/highreport/highreport.html'
+				})
+				.when('/flot',
+				{
+					controller: 'FlotController',
+					templateUrl: '/views/flot/flot.html'
 				})
 				.when('/morris',
 				{
