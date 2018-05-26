@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class HighChartPieCellValue extends AbsCellValue   {
+public class CellValueHighChartPie extends AbsCellValue   {
 
 	
 	@Override

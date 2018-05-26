@@ -19,8 +19,8 @@ import com.google.common.collect.Tables;
 import com.maxcheung.models.AccountCashBalanceSummary;
 import com.maxcheung.models.CellType;
 import com.maxcheung.models.CellValue;
-import com.maxcheung.models.DefaultCellValue;
-import com.maxcheung.models.HighChartBarCellValue;
+import com.maxcheung.models.CellValueDefault;
+import com.maxcheung.models.CellValueHighChartBar;
 import com.maxcheung.models.ReportComboTemplate;
 
 @RestController
@@ -75,7 +75,7 @@ public class ReportRestController {
 		
 		
 		List<List<Object>> highchartBarValue = highchartBarTable.values().stream()
-			.map(x -> (HighChartBarCellValue) x)
+			.map(x -> (CellValueHighChartBar) x)
 			.map(y ->   y.getSpecialValue())
 			.collect(Collectors.toList());  
 		
@@ -106,7 +106,7 @@ public class ReportRestController {
 	public List<CellValue> getDefaultData() {
 		LOG.info("Get Defaultchart");
 		List<CellValue> data = new ArrayList<CellValue>();
-		CellValue cellValue = new DefaultCellValue();
+		CellValue cellValue = new CellValueDefault();
 		cellValue.setRowKey("Microsoft Internet Explorer");
 		cellValue.setColumnKey("Percentage");
 		cellValue.setValue(BigDecimal.valueOf(53.33));
@@ -136,7 +136,7 @@ public class ReportRestController {
 	}
 
 	private CellValue createCell(String rowKey, String colKey, BigDecimal value) {
-		CellValue cellValue = new DefaultCellValue();
+		CellValue cellValue = new CellValueDefault();
 		cellValue.setRowKey(rowKey);
 		cellValue.setColumnKey(colKey);
 		cellValue.setValue(value);

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class HighChartBarCellValue extends AbsCellValue   {
+public class CellValueHighChartBar extends AbsCellValue   {
 
 	
 	@Override

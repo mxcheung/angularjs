@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.maxcheung.models.AccountCashBalanceSummary;
-import com.maxcheung.models.DefaultCellValue;
+import com.maxcheung.models.CellValueDefault;
 
 /**
  * Service class to generate account cash balance report.
@@ -21,11 +21,11 @@ public interface ReportService {
 	AccountCashBalanceSummary getAccountCashBalanceSummary();
 
 	/**
-     * Given a list of {@link DefaultCellValue} register the profile to the system.
+     * Given a list of {@link CellValueDefault} register the profile to the system.
 	 * @param accountBalances list of accountBalances by accountId.
 	 * @param accountMap a map of account to account group.
 	 * @return accountBalances mapped by account group. 
 	 */
-	List<DefaultCellValue> convertTxnsOrig(List<DefaultCellValue> accountBalances, Map<String, String> accountMap);
+	List<CellValueDefault> convertTxnsOrig(List<CellValueDefault> accountBalances, Map<String, String> accountMap);
 
 }

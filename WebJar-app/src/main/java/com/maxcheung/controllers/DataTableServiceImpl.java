@@ -19,9 +19,9 @@ import com.google.common.collect.TreeBasedTable;
 import com.maxcheung.models.CellType;
 import com.maxcheung.models.CellValue;
 import com.maxcheung.models.DataTable;
-import com.maxcheung.models.DefaultCellValue;
-import com.maxcheung.models.HighChartBarCellValue;
-import com.maxcheung.models.HighChartPieCellValue;
+import com.maxcheung.models.CellValueDefault;
+import com.maxcheung.models.CellValueHighChartBar;
+import com.maxcheung.models.CellValueHighChartPie;
 
 @Service
 public class DataTableServiceImpl implements DataTableService {
@@ -33,7 +33,7 @@ public class DataTableServiceImpl implements DataTableService {
     public List<CellValue> createDefaults(Set<String> rowKeys, String columnKey, BigDecimal value) {
         List<CellValue> monies = new ArrayList<CellValue>();
         for (String rowKey : rowKeys) {
-            CellValue moneyCell = new DefaultCellValue();
+            CellValue moneyCell = new CellValueDefault();
             moneyCell.setRowKey(rowKey);
             moneyCell.setColumnKey(columnKey);
             moneyCell.setValue(value);
@@ -77,7 +77,7 @@ public class DataTableServiceImpl implements DataTableService {
 
     @Override
     public CellValue calcTotal(Map<String, CellValue> totals) {
-        CellValue moneyCell = new DefaultCellValue();
+        CellValue moneyCell = new CellValueDefault();
         moneyCell.setValue(totals.values().stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
         return moneyCell;
     }
@@ -117,9 +117,9 @@ public class DataTableServiceImpl implements DataTableService {
     public CellValue  convert(CellValue source,  CellType cellType) {
     	CellValue dest = null;
     	if ( cellType == CellType.HIGHCHARTPIE) {
-    		return mapper.map(source, HighChartPieCellValue.class);
+    		return mapper.map(source, CellValueHighChartPie.class);
     	} else  if ( cellType == CellType.HIGHCHARTBAR) {
-    		return mapper.map(source, HighChartBarCellValue.class);
+    		return mapper.map(source, CellValueHighChartBar.class);
     	}
         return dest;
     }
@@ -158,7 +158,7 @@ public class DataTableServiceImpl implements DataTableService {
         if (existingMoneyCell == null) {
         	if (moneyCell.getCellType() == CellType.DEFAULT) {
         		
-        		existingMoneyCell = new DefaultCellValue();
+        		existingMoneyCell = new CellValueDefault();
         	}
         	
         }

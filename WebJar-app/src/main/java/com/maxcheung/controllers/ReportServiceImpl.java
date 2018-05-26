@@ -16,7 +16,7 @@ import com.google.common.collect.Table;
 import com.google.common.collect.Tables;
 import com.maxcheung.models.AccountCashBalanceSummary;
 import com.maxcheung.models.CellValue;
-import com.maxcheung.models.DefaultCellValue;
+import com.maxcheung.models.CellValueDefault;
 import com.maxcheung.models.DataTable;
 import com.maxcheung.models.ReportSummary;
 
@@ -48,8 +48,8 @@ public class ReportServiceImpl implements ReportService {
 		Set<String> sections = fetchSections(CASH_REPORT_SECTIONS);
 		Map<String,String> accountMap = fetchAccountMap(CASH_REPORT_ACCT_MAP);
 		Map<String,BigDecimal> exchangeRate = fetchExchangeRate(enquiryDt);
-		List<DefaultCellValue> txnsOriginal;
-		List<DefaultCellValue> txnsBase;
+		List<CellValueDefault> txnsOriginal;
+		List<CellValueDefault> txnsBase;
 		txnsOriginal = fetchTxns(enquiryDt);
 		
 		/*
@@ -118,9 +118,9 @@ public class ReportServiceImpl implements ReportService {
 		return exchangeRate;
 	}
 
-	private List<DefaultCellValue> fetchTxns(LocalDate enquiryDt) {
-		List<DefaultCellValue> txns = new ArrayList<>();
-		DefaultCellValue cellValue = new DefaultCellValue();
+	private List<CellValueDefault> fetchTxns(LocalDate enquiryDt) {
+		List<CellValueDefault> txns = new ArrayList<>();
+		CellValueDefault cellValue = new CellValueDefault();
 		cellValue.setValue(BigDecimal.ONE);
 		txns.add(cellValue);
 		return txns;
@@ -135,17 +135,17 @@ public class ReportServiceImpl implements ReportService {
      * {@inheritDoc}
      */
     @Override
-	public List<DefaultCellValue> convertTxnsOrig(List<DefaultCellValue> accountBalances, Map<String,String> accountMap) {
-		List<DefaultCellValue> convertTxns = new ArrayList<>();
-		DefaultCellValue cellValue = new DefaultCellValue();
+	public List<CellValueDefault> convertTxnsOrig(List<CellValueDefault> accountBalances, Map<String,String> accountMap) {
+		List<CellValueDefault> convertTxns = new ArrayList<>();
+		CellValueDefault cellValue = new CellValueDefault();
 		cellValue.setValue(BigDecimal.ONE);
 		convertTxns.add(cellValue);
 		return convertTxns;
 	}
 
-	private List<DefaultCellValue> convertTxnsBase(List<DefaultCellValue> origTxn, Map<String,BigDecimal> exchangeRate) {
-		List<DefaultCellValue> txns = new ArrayList<>();
-		DefaultCellValue cellValue = new DefaultCellValue();
+	private List<CellValueDefault> convertTxnsBase(List<CellValueDefault> origTxn, Map<String,BigDecimal> exchangeRate) {
+		List<CellValueDefault> txns = new ArrayList<>();
+		CellValueDefault cellValue = new CellValueDefault();
 		cellValue.setValue(BigDecimal.ONE);
 		txns.add(cellValue);
 		return txns;
@@ -153,7 +153,7 @@ public class ReportServiceImpl implements ReportService {
 	
 	
 
-	private ReportSummary createReport(Set<String> headers, Set<String> sections, List<DefaultCellValue> txns) {
+	private ReportSummary createReport(Set<String> headers, Set<String> sections, List<CellValueDefault> txns) {
 		ReportSummary accountCashBalanceReportBase = new ReportSummary();
 		accountCashBalanceReportBase.setHeaders(headers);
 		accountCashBalanceReportBase.setSections(getSections(sections,txns ));
@@ -161,13 +161,13 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 
-	private DataTable createSection(String section,  List<DefaultCellValue> txns) {
+	private DataTable createSection(String section,  List<CellValueDefault> txns) {
 		DataTable moneyTable = new DataTable();
 		Table<String, String, CellValue> table = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
 		// populate table
-		DefaultCellValue value = new DefaultCellValue();
+		CellValueDefault value = new CellValueDefault();
 		value.setValue(BigDecimal.TEN);
-		DefaultCellValue value1 = new DefaultCellValue();
+		CellValueDefault value1 = new CellValueDefault();
 		value1.setValue(BigDecimal.ONE);
 		table.put("Row1", "USD", value );
 		table.put("Row1", "HKD", value1 );
@@ -179,10 +179,10 @@ public class ReportServiceImpl implements ReportService {
 		return moneyTable;
 	}
 
-	private Map<String, DataTable> getSections(Set<String> sections,  List<DefaultCellValue> txns) {
+	private Map<String, DataTable> getSections(Set<String> sections,  List<CellValueDefault> txns) {
 		Map<String, DataTable> sectionmap = new LinkedHashMap<>();
 		for (String section : sections) {
-			List<DefaultCellValue> filteredTxns =  txns; 
+			List<CellValueDefault> filteredTxns =  txns; 
 			sectionmap.put("USD", createSection(section, filteredTxns));
 		}
 		return sectionmap;
@@ -223,7 +223,7 @@ public class ReportServiceImpl implements ReportService {
 	}
 	
 	public CellValue getGrandTotal(Map<String, CellValue> totals) {
-		CellValue moneyCell = new DefaultCellValue();
+		CellValue moneyCell = new CellValueDefault();
 		moneyCell.setValue(totals.values().stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
 		return moneyCell;
 	}

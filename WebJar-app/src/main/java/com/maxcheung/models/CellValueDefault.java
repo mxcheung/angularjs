@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DefaultCellValue extends AbsCellValue   {
+public class CellValueDefault extends AbsCellValue   {
 
 
 	@Override
