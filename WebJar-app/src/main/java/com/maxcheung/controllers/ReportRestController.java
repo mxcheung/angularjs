@@ -48,39 +48,22 @@ public class ReportRestController {
 		Table<String, String, CellValue> table = getTable();
 		Table<String, String, CellValue> highChartTable = dataTableServiceImpl.transformTable(table, CellType.HIGHCHARTPIE);
 		Table<String, String, CellValue> highchartBarTable = dataTableServiceImpl.transformTable(table, CellType.HIGHCHARTBAR);
-
-		// List<CellValue> target = new ArrayList<CellValue>();
-		// for ( CellValue sourceCell : sourceCells) {
-		// target.add(dataTableServiceImpl.convert(sourceCell, CellType.HIGHCHART));
-		// }
-
-		List<CellValue> highchartpie = highChartTable.values().stream().collect(Collectors.toList());
-
-		ReportComboTemplate reportComboTemplate = new ReportComboTemplate();
-		reportComboTemplate.setHighchartpie(highchartpie);
-		reportComboTemplate.setSmartchartlabel(highChartTable.rowKeySet());
-
-		List<BigDecimal> amounts = highChartTable.column("Percentage").values().stream().map(x -> x.getValue())
+		List<CellValue> highchartpieData = highChartTable.values()
+				.stream()
 				.collect(Collectors.toList());
-		reportComboTemplate.setSmartchartdata(amounts);
+		
+		List<BigDecimal> smartChartData = dataTableServiceImpl.convertToListAmounts(highChartTable);
 
-		
-/*		
-		List<List<Object>> highchartbar = new ArrayList<List<Object>>();
-		for ( CellValue cell : highchartpie) {
-			highchartbar.add(Arrays.asList(cell.getRowKey(), cell.getValue()));
-		}
-*/		
-	//	List<List<Object>> highchartBarValue = highchartBarTable.values().stream().map(x ->  (List<Object>) x.getValue()).collect(Collectors.toList());
-		
-		
 		List<List<Object>> highchartBarValue = highchartBarTable.values().stream()
 			.map(x -> (CellValueHighChartBar) x)
 			.map(y ->   y.getSpecialValue())
 			.collect(Collectors.toList());  
 		
-//		List<BigDecimal> amounts = dest.column("Percentage").values().stream().map(x -> x.getValue())
-
+		
+		ReportComboTemplate reportComboTemplate = new ReportComboTemplate();
+		reportComboTemplate.setHighchartpie(highchartpieData);
+		reportComboTemplate.setSmartchartlabel(highChartTable.rowKeySet());
+		reportComboTemplate.setSmartchartdata(smartChartData);
 		reportComboTemplate.setHighchartbar(highchartBarValue );
 
 		return reportComboTemplate;

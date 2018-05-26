@@ -25,5 +25,7 @@ public interface DataTableService {
 
     Map<String, CellValue> getRowTotal(Table<String, String, CellValue> table);
 
+	List<BigDecimal> convertToListAmounts(Table<String, String, CellValue> table);
+
 
 }

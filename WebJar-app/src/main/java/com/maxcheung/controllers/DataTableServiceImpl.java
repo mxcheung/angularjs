@@ -65,6 +65,17 @@ public class DataTableServiceImpl implements DataTableService {
         return rowTotals;
     }
 
+    
+    @Override
+    public List<BigDecimal> convertToListAmounts(Table<String, String, CellValue> table) {
+    	List<BigDecimal> amounts = table.values().stream()
+				.map(x -> x.getValue())
+				.collect(Collectors.toList());
+        return amounts;
+
+    }
+
+    
     @Override
     public Map<String, CellValue> getColumnTotal(Table<String, String, CellValue> table) {
         Set<String> columnKeys = table.columnKeySet();
