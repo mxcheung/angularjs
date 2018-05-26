@@ -20,7 +20,8 @@ import com.maxcheung.models.CellType;
 import com.maxcheung.models.CellValue;
 import com.maxcheung.models.DataTable;
 import com.maxcheung.models.DefaultCellValue;
-import com.maxcheung.models.HighChartCellValue;
+import com.maxcheung.models.HighChartBarCellValue;
+import com.maxcheung.models.HighChartPieCellValue;
 
 @Service
 public class DataTableServiceImpl implements DataTableService {
@@ -106,26 +107,20 @@ public class DataTableServiceImpl implements DataTableService {
     }
 
     public Table<String, String, CellValue>  transformTable(Table<String, String, CellValue> source, CellType cellType) {
-    	 Table<String, String, CellValue> dest = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new) ; 
-    	if ( cellType == CellType.HIGHCHART) { 
-//    		dest = Tables.newCustomTable(new LinkedHashMap<String, Map<String, HighChartCellValue>>(), LinkedHashMap::new);
-    		
-    		for (Cell<String, String, CellValue> cell: source.cellSet()){
-    			dest.put(cell.getRowKey(), cell.getColumnKey(), convert(cell.getValue(), cellType));
-//    		    System.out.println(cell.getRowKey()+" "+cell.getColumnKey()+" "+cell.getValue());
-    		};
-    		
-  //     	 dest = mapper.map(source, Table.class);
-    	}
+	 Table<String, String, CellValue> dest = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new) ; 
+		for (Cell<String, String, CellValue> cell: source.cellSet()){
+			dest.put(cell.getRowKey(), cell.getColumnKey(), convert(cell.getValue(), cellType));
+		};
         return dest;
     }
 
     public CellValue  convert(CellValue source,  CellType cellType) {
-    	CellValue dest ;
-    	if ( cellType == CellType.HIGHCHART) {
-    		dest = new HighChartCellValue();
+    	CellValue dest = null;
+    	if ( cellType == CellType.HIGHCHARTPIE) {
+    		return mapper.map(source, HighChartPieCellValue.class);
+    	} else  if ( cellType == CellType.HIGHCHARTBAR) {
+    		return mapper.map(source, HighChartBarCellValue.class);
     	}
-    	 dest = mapper.map(source, HighChartCellValue.class);
         return dest;
     }
 

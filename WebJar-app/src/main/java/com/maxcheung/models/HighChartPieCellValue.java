@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class HighChartCellValue extends AbsCellValue   {
+public class HighChartPieCellValue extends AbsCellValue   {
 
 	
 	@Override
 	public CellType getCellType() {
-		return CellType.HIGHCHART;
+		return CellType.HIGHCHARTPIE;
 	}
 
 	@JsonProperty("name")

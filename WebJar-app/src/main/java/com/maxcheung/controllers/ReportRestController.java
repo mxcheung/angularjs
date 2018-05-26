@@ -20,6 +20,7 @@ import com.maxcheung.models.AccountCashBalanceSummary;
 import com.maxcheung.models.CellType;
 import com.maxcheung.models.CellValue;
 import com.maxcheung.models.DefaultCellValue;
+import com.maxcheung.models.HighChartBarCellValue;
 import com.maxcheung.models.ReportComboTemplate;
 
 @RestController
@@ -45,29 +46,42 @@ public class ReportRestController {
 		DataTableServiceImpl dataTableServiceImpl = new DataTableServiceImpl();
 
 		Table<String, String, CellValue> table = getTable();
-		Table<String, String, CellValue> dest = dataTableServiceImpl.transformTable(table, CellType.HIGHCHART);
+		Table<String, String, CellValue> highChartTable = dataTableServiceImpl.transformTable(table, CellType.HIGHCHARTPIE);
+		Table<String, String, CellValue> highchartBarTable = dataTableServiceImpl.transformTable(table, CellType.HIGHCHARTBAR);
 
 		// List<CellValue> target = new ArrayList<CellValue>();
 		// for ( CellValue sourceCell : sourceCells) {
 		// target.add(dataTableServiceImpl.convert(sourceCell, CellType.HIGHCHART));
 		// }
 
-		List<CellValue> highchartpie = dest.values().stream().collect(Collectors.toList());
+		List<CellValue> highchartpie = highChartTable.values().stream().collect(Collectors.toList());
 
 		ReportComboTemplate reportComboTemplate = new ReportComboTemplate();
 		reportComboTemplate.setHighchartpie(highchartpie);
-		reportComboTemplate.setSmartchartlabel(dest.rowKeySet());
+		reportComboTemplate.setSmartchartlabel(highChartTable.rowKeySet());
 
-		List<BigDecimal> amounts = dest.column("Percentage").values().stream().map(x -> x.getValue())
+		List<BigDecimal> amounts = highChartTable.column("Percentage").values().stream().map(x -> x.getValue())
 				.collect(Collectors.toList());
 		reportComboTemplate.setSmartchartdata(amounts);
 
-		List<List<Object>> highchartbar = new ArrayList<List<Object>>();
 		
+/*		
+		List<List<Object>> highchartbar = new ArrayList<List<Object>>();
 		for ( CellValue cell : highchartpie) {
 			highchartbar.add(Arrays.asList(cell.getRowKey(), cell.getValue()));
 		}
-		reportComboTemplate.setHighchartbar(highchartbar );
+*/		
+	//	List<List<Object>> highchartBarValue = highchartBarTable.values().stream().map(x ->  (List<Object>) x.getValue()).collect(Collectors.toList());
+		
+		
+		List<List<Object>> highchartBarValue = highchartBarTable.values().stream()
+			.map(x -> (HighChartBarCellValue) x)
+			.map(y ->   y.getSpecialValue())
+			.collect(Collectors.toList());  
+		
+//		List<BigDecimal> amounts = dest.column("Percentage").values().stream().map(x -> x.getValue())
+
+		reportComboTemplate.setHighchartbar(highchartBarValue );
 
 		return reportComboTemplate;
 	}
@@ -84,7 +98,7 @@ public class ReportRestController {
 		LOG.info("Get getHighCartData");
 		DataTableServiceImpl dataTableServiceImpl = new DataTableServiceImpl();
 		Table<String, String, CellValue> table = getTable();
-		Table<String, String, CellValue> dest = dataTableServiceImpl.transformTable(table, CellType.HIGHCHART);
+		Table<String, String, CellValue> dest = dataTableServiceImpl.transformTable(table, CellType.HIGHCHARTPIE);
 		return dest;
 	}
 
