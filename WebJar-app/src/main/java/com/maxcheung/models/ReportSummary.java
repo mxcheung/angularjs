@@ -3,11 +3,11 @@ package com.maxcheung.models;
 import java.util.Map;
 import java.util.Set;
 
-public class ReportTable {
+public class ReportSummary {
 	
 	private Set<String> headers;
 	
-	private Map<String, ReportSection> sections;
+	private Map<String, DataTable> sections;
 
 
 	public Set<String> getHeaders() {
@@ -20,12 +20,12 @@ public class ReportTable {
 	}
 
 
-	public Map<String, ReportSection> getSections() {
+	public Map<String, DataTable> getSections() {
 		return sections;
 	}
 
 
-	public void setSections(Map<String, ReportSection> sections) {
+	public void setSections(Map<String, DataTable> sections) {
 		this.sections = sections;
 	}
 

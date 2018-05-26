@@ -3,7 +3,6 @@ package com.maxcheung.controllers;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -15,13 +14,14 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Table;
 import com.google.common.collect.Tables;
-import com.maxcheung.models.ReportTable;
 import com.maxcheung.models.AccountCashBalanceSummary;
 import com.maxcheung.models.CellValue;
-import com.maxcheung.models.ReportSection;
+import com.maxcheung.models.DefaultCellValue;
+import com.maxcheung.models.DataTable;
+import com.maxcheung.models.ReportSummary;
 
 @Service
-public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
+public class ReportServiceImpl implements ReportService {
 
 	private static final String BASE_CCY = "USD";
 	private static final String CASH_REPORT_CURRENCY = "CASH_REPORT_CURRENCY";
@@ -30,7 +30,10 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 	
 
 
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public AccountCashBalanceSummary getAccountCashBalanceSummary() {
 		/*
 		 *  1.1. Fetch Currencies
@@ -45,8 +48,8 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 		Set<String> sections = fetchSections(CASH_REPORT_SECTIONS);
 		Map<String,String> accountMap = fetchAccountMap(CASH_REPORT_ACCT_MAP);
 		Map<String,BigDecimal> exchangeRate = fetchExchangeRate(enquiryDt);
-		List<CellValue> txnsOriginal;
-		List<CellValue> txnsBase;
+		List<DefaultCellValue> txnsOriginal;
+		List<DefaultCellValue> txnsBase;
 		txnsOriginal = fetchTxns(enquiryDt);
 		
 		/*
@@ -64,9 +67,9 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 		 *  3.4 Create sections base currency
 		 */
 		
-		ReportTable reportOrig = createReport(allCurrencies, sections, txnsOriginal);
-		ReportTable reportBase = createReport(allCurrencies, sections, txnsBase);
-		Map<String, ReportTable> reports = new HashMap<String, ReportTable>();
+		ReportSummary reportOrig = createReport(allCurrencies, sections, txnsOriginal);
+		ReportSummary reportBase = createReport(allCurrencies, sections, txnsBase);
+		Map<String, ReportSummary> reports = new HashMap<String, ReportSummary>();
 		reports.put("ORIG", reportOrig);
 		reports.put("BASE", reportBase);
 		
@@ -115,9 +118,9 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 		return exchangeRate;
 	}
 
-	private List<CellValue> fetchTxns(LocalDate enquiryDt) {
-		List<CellValue> txns = new ArrayList<>();
-		CellValue cellValue = new CellValue();
+	private List<DefaultCellValue> fetchTxns(LocalDate enquiryDt) {
+		List<DefaultCellValue> txns = new ArrayList<>();
+		DefaultCellValue cellValue = new DefaultCellValue();
 		cellValue.setValue(BigDecimal.ONE);
 		txns.add(cellValue);
 		return txns;
@@ -127,17 +130,22 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 	 * 
 	 *     Convertors
 	 */
-	private List<CellValue> convertTxnsOrig(List<CellValue> txn, Map<String,String> accountMap) {
-		List<CellValue> convertTxns = new ArrayList<>();
-		CellValue cellValue = new CellValue();
+
+	/**
+     * {@inheritDoc}
+     */
+    @Override
+	public List<DefaultCellValue> convertTxnsOrig(List<DefaultCellValue> accountBalances, Map<String,String> accountMap) {
+		List<DefaultCellValue> convertTxns = new ArrayList<>();
+		DefaultCellValue cellValue = new DefaultCellValue();
 		cellValue.setValue(BigDecimal.ONE);
 		convertTxns.add(cellValue);
 		return convertTxns;
 	}
 
-	private List<CellValue> convertTxnsBase(List<CellValue> origTxn, Map<String,BigDecimal> exchangeRate) {
-		List<CellValue> txns = new ArrayList<>();
-		CellValue cellValue = new CellValue();
+	private List<DefaultCellValue> convertTxnsBase(List<DefaultCellValue> origTxn, Map<String,BigDecimal> exchangeRate) {
+		List<DefaultCellValue> txns = new ArrayList<>();
+		DefaultCellValue cellValue = new DefaultCellValue();
 		cellValue.setValue(BigDecimal.ONE);
 		txns.add(cellValue);
 		return txns;
@@ -145,21 +153,21 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 	
 	
 
-	private ReportTable createReport(Set<String> headers, Set<String> sections, List<CellValue> txns) {
-		ReportTable accountCashBalanceReportBase = new ReportTable();
+	private ReportSummary createReport(Set<String> headers, Set<String> sections, List<DefaultCellValue> txns) {
+		ReportSummary accountCashBalanceReportBase = new ReportSummary();
 		accountCashBalanceReportBase.setHeaders(headers);
 		accountCashBalanceReportBase.setSections(getSections(sections,txns ));
 		return accountCashBalanceReportBase;
 	}
 
 
-	private ReportSection createSection(String section,  List<CellValue> txns) {
-		ReportSection moneyTable = new ReportSection();
+	private DataTable createSection(String section,  List<DefaultCellValue> txns) {
+		DataTable moneyTable = new DataTable();
 		Table<String, String, CellValue> table = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
 		// populate table
-		CellValue value = new CellValue();
+		DefaultCellValue value = new DefaultCellValue();
 		value.setValue(BigDecimal.TEN);
-		CellValue value1 = new CellValue();
+		DefaultCellValue value1 = new DefaultCellValue();
 		value1.setValue(BigDecimal.ONE);
 		table.put("Row1", "USD", value );
 		table.put("Row1", "HKD", value1 );
@@ -171,10 +179,10 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 		return moneyTable;
 	}
 
-	private Map<String, ReportSection> getSections(Set<String> sections,  List<CellValue> txns) {
-		Map<String, ReportSection> sectionmap = new LinkedHashMap<>();
+	private Map<String, DataTable> getSections(Set<String> sections,  List<DefaultCellValue> txns) {
+		Map<String, DataTable> sectionmap = new LinkedHashMap<>();
 		for (String section : sections) {
-			List<CellValue> filteredTxns =  txns; 
+			List<DefaultCellValue> filteredTxns =  txns; 
 			sectionmap.put("USD", createSection(section, filteredTxns));
 		}
 		return sectionmap;
@@ -215,7 +223,7 @@ public class ReportCashBalanceServiceImpl implements ReportCashBalanceService {
 	}
 	
 	public CellValue getGrandTotal(Map<String, CellValue> totals) {
-		CellValue moneyCell = new CellValue();
+		CellValue moneyCell = new DefaultCellValue();
 		moneyCell.setValue(totals.values().stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
 		return moneyCell;
 	}

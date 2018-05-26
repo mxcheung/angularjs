@@ -68,6 +68,11 @@ var app = angular.module('ToDoListApp', [
 					controller: 'HighReportController',
 					templateUrl: '/views/highreport/highreport.html'
 				})
+				.when('/highchartcombo',
+				{
+					controller: 'HighChartComboController',
+					templateUrl: '/views/highchartcombo/highchartcombo.html'
+				})
 				.when('/highchartpie',
 				{
 					controller: 'HighChartPieController',

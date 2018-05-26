@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.google.common.collect.Table;
 
-public class ReportSection  {
+public class DataTable  {
 
 	private Table<String, String, CellValue> table;
 

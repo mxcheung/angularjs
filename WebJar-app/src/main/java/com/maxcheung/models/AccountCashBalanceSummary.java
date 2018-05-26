@@ -5,14 +5,14 @@ import java.util.Map;
 
 public class AccountCashBalanceSummary {
 
-	private Map<String, ReportTable> reports;
+	private Map<String, ReportSummary> reports;
 	
 
-	public Map<String, ReportTable> getReports() {
+	public Map<String, ReportSummary> getReports() {
 		return reports;
 	}
 
-	public void setReports(Map<String, ReportTable> reports) {
+	public void setReports(Map<String, ReportSummary> reports) {
 		this.reports = reports;
 	}
 

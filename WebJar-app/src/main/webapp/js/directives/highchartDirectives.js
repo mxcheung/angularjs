@@ -22,7 +22,7 @@ angular.module('myApp.highchartDirectives', [])
             data: '='
         },
         link: function (scope, element) {
-            Highcharts.chart(element[0], {
+        	  var chart=  Highcharts.chart(element[0], {
                 chart: {
                     type: 'pie'
                 },
@@ -43,6 +43,9 @@ angular.module('myApp.highchartDirectives', [])
                     data: scope.data
                 }]
             });
-        }
+            scope.$watch("data", function (newValue) {
+                chart.series[0].setData(newValue, true);
+              }, true);
+        }    
     };
 });
