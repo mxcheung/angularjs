@@ -1,0 +1,32 @@
+{
+  "Microsoft Internet Explorer": {
+    "Percentage": {
+      "valueAmt": 56.33
+    }
+  },
+  "Chrome": {
+    "Percentage": {
+      "valueAmt": 24.03
+    }
+  },
+  "Firefox": {
+    "Percentage": {
+      "valueAmt": 10.38
+    }
+  },
+  "Safari": {
+    "Percentage": {
+      "valueAmt": 4.77
+    }
+  },
+  "Opera": {
+    "Percentage": {
+      "valueAmt": 0.91
+    }
+  },
+  "Proprietary or Undetectable": {
+    "Percentage": {
+      "valueAmt": 0.2
+    }
+  }
+}

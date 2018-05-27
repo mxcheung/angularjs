@@ -1,0 +1,38 @@
+{
+  "Microsoft Internet Explorer": {
+    "Percentage": {
+      "name": "Microsoft Internet Explorer",
+      "y": 56.33
+    }
+  },
+  "Chrome": {
+    "Percentage": {
+      "name": "Chrome",
+      "y": 24.03
+    }
+  },
+  "Firefox": {
+    "Percentage": {
+      "name": "Firefox",
+      "y": 10.38
+    }
+  },
+  "Safari": {
+    "Percentage": {
+      "name": "Safari",
+      "y": 4.77
+    }
+  },
+  "Opera": {
+    "Percentage": {
+      "name": "Opera",
+      "y": 0.91
+    }
+  },
+  "Proprietary or Undetectable": {
+    "Percentage": {
+      "name": "Proprietary or Undetectable",
+      "y": 0.2
+    }
+  }
+}

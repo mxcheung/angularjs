@@ -1,0 +1,50 @@
+{
+  "Microsoft Internet Explorer": {
+    "Percentage": {
+      "pairValue": [
+        "Microsoft Internet Explorer",
+        56.33
+      ]
+    }
+  },
+  "Chrome": {
+    "Percentage": {
+      "pairValue": [
+        "Chrome",
+        24.03
+      ]
+    }
+  },
+  "Firefox": {
+    "Percentage": {
+      "pairValue": [
+        "Firefox",
+        10.38
+      ]
+    }
+  },
+  "Safari": {
+    "Percentage": {
+      "pairValue": [
+        "Safari",
+        4.77
+      ]
+    }
+  },
+  "Opera": {
+    "Percentage": {
+      "pairValue": [
+        "Opera",
+        0.91
+      ]
+    }
+  },
+  "Proprietary or Undetectable": {
+    "Percentage": {
+      "pairValue": [
+        "Proprietary or Undetectable",
+        0.2
+      ]
+    }
+  }
+}
