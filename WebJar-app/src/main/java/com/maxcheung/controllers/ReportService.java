@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.maxcheung.models.AccountCashBalanceSummary;
+import com.maxcheung.models.CellValue;
 import com.maxcheung.models.CellValueDefault;
 
 /**
@@ -26,6 +27,6 @@ public interface ReportService {
 	 * @param accountMap a map of account to account group.
 	 * @return accountBalances mapped by account group. 
 	 */
-	List<CellValueDefault> convertTxnsOrig(List<CellValueDefault> accountBalances, Map<String, String> accountMap);
+	List<CellValue> mapTxnsAccountToAccountGroup(List<CellValue> accountBalances, Map<String, String> accountMap);
 
 }

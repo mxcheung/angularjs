@@ -26,7 +26,8 @@ public class ReportServiceImpl implements ReportService {
 	private static final String BASE_CCY = "USD";
 	private static final String CASH_REPORT_CURRENCY = "CASH_REPORT_CURRENCY";
 	private static final String CASH_REPORT_SECTIONS = "CASH_REPORT_ACCT_GROUP_PARENT";
-	private static final String CASH_REPORT_ACCT_MAP = "CASH_REPORT_ACCT_GROUP_MAP";
+	private static final String CASH_REPORT_ACCT_PROJECTION_MAP = "CASH_REPORT_ACCT_PROJECTION_MAP";
+	private static final String CASH_REPORT_ACCT_DEPOSIT_MAP = "CASH_REPORT_ACCT_DEPOSIT_MAP";
 	
 
 
@@ -35,39 +36,51 @@ public class ReportServiceImpl implements ReportService {
      */
     @Override
 	public AccountCashBalanceSummary getAccountCashBalanceSummary() {
-		/*
+    	DepositService depositServiceImpl = new DepositServiceImpl();
+
+    	/*
 		 *  1.1. Fetch Currencies
-		 *  1.2. Fetch Account Mapping
-		 *  1.3. Fetch Section
-		 *  1.4. Fetch Exchange rates
-		 *  1.5. Fetch projections
-		 *  1.6. Fetch projections base currency		 *  
+		 *  1.2. Fetch Account Mapping Projections
+		 *  1.3. Fetch Account Mapping Deposits
+		 *  1.4. Fetch Section
+		 *  1.5. Fetch Exchange rates
+		 *  1.6. Fetch projections
+		 *  1.7. Fetch deposits
+		 *  1.8. Fetch projections base currency		 *  
 		 */
 		LocalDate enquiryDt = LocalDate.of(2018, 05, 01) ;
 		Set<String> allCurrencies = fetchCurrencies(CASH_REPORT_CURRENCY);
 		Set<String> sections = fetchSections(CASH_REPORT_SECTIONS);
-		Map<String,String> accountMap = fetchAccountMap(CASH_REPORT_ACCT_MAP);
+		Map<String,String> accountProjectionMap = fetchAccountMap(CASH_REPORT_ACCT_PROJECTION_MAP);
+		Map<String,String> accountDepositMap = fetchAccountMap(CASH_REPORT_ACCT_DEPOSIT_MAP);
 		Map<String,BigDecimal> exchangeRate = fetchExchangeRate(enquiryDt);
-		List<CellValueDefault> txnsOriginal;
-		List<CellValueDefault> txnsBase;
-		txnsOriginal = fetchTxns(enquiryDt);
+		List<CellValue> txnsProjectionsOriginal = fetchProjectionTxns(enquiryDt);
+		List<CellValue> txnsDepositsOriginal = fetchDepositTxns(enquiryDt);
+
+    	/*
+		 *  2.1. Map projections to projection group account
+		 *  2.2. Map deposits to deposit group account
+		 *  2.3. Merge projections + deposits
+		 */
+		txnsProjectionsOriginal = mapTxnsAccountToAccountGroup(txnsProjectionsOriginal, accountProjectionMap);
+		txnsDepositsOriginal = mapTxnsAccountToAccountGroup(txnsDepositsOriginal, accountDepositMap);
+		txnsProjectionsOriginal.addAll(txnsDepositsOriginal);
 		
 		/*
-		 *  2.1. Convert origtxn
-		 *  2.2. Convert txn
+		 *  3.1. Convert origtxn
+		 *  3.2. Convert txn
 		 */
-		txnsOriginal = convertTxnsOrig(txnsOriginal, accountMap);
-		txnsBase = convertTxnsBase(txnsOriginal, exchangeRate);
+		List<CellValue> txnsBase = convertTxnsBase(txnsProjectionsOriginal, exchangeRate);
 		
 		/*
-		 *  3.1 Create report original currency
-		 *  3.2 Create sections
-		 *  3.2.1. Filter projections by section account
-		 *  3.3 Create report base currency
-		 *  3.4 Create sections base currency
+		 *  4.1 Create report original currency
+		 *  4.2 Create sections
+		 *  4.2.1. Filter projections by section account
+		 *  4.3 Create report base currency
+		 *  4.4 Create sections base currency
 		 */
 		
-		ReportSummary reportOrig = createReport(allCurrencies, sections, txnsOriginal);
+		ReportSummary reportOrig = createReport(allCurrencies, sections, txnsProjectionsOriginal);
 		ReportSummary reportBase = createReport(allCurrencies, sections, txnsBase);
 		Map<String, ReportSummary> reports = new HashMap<String, ReportSummary>();
 		reports.put("ORIG", reportOrig);
@@ -118,14 +131,21 @@ public class ReportServiceImpl implements ReportService {
 		return exchangeRate;
 	}
 
-	private List<CellValueDefault> fetchTxns(LocalDate enquiryDt) {
-		List<CellValueDefault> txns = new ArrayList<>();
+	private List<CellValue> fetchProjectionTxns(LocalDate enquiryDt) {
+		List<CellValue> txns = new ArrayList<>();
 		CellValueDefault cellValue = new CellValueDefault();
 		cellValue.setValue(BigDecimal.ONE);
 		txns.add(cellValue);
 		return txns;
 	}
 
+	private List<CellValue> fetchDepositTxns(LocalDate enquiryDt) {
+		List<CellValue> txns = new ArrayList<>();
+		CellValueDefault cellValue = new CellValueDefault();
+		cellValue.setValue(BigDecimal.ONE);
+		txns.add(cellValue);
+		return txns;
+	}
 	/**************************************************
 	 * 
 	 *     Convertors
@@ -135,16 +155,16 @@ public class ReportServiceImpl implements ReportService {
      * {@inheritDoc}
      */
     @Override
-	public List<CellValueDefault> convertTxnsOrig(List<CellValueDefault> accountBalances, Map<String,String> accountMap) {
-		List<CellValueDefault> convertTxns = new ArrayList<>();
+	public List<CellValue> mapTxnsAccountToAccountGroup(List<CellValue> accountBalances, Map<String,String> accountMap) {
+		List<CellValue> convertTxns = new ArrayList<>();
 		CellValueDefault cellValue = new CellValueDefault();
 		cellValue.setValue(BigDecimal.ONE);
 		convertTxns.add(cellValue);
 		return convertTxns;
 	}
 
-	private List<CellValueDefault> convertTxnsBase(List<CellValueDefault> origTxn, Map<String,BigDecimal> exchangeRate) {
-		List<CellValueDefault> txns = new ArrayList<>();
+	private List<CellValue> convertTxnsBase(List<CellValue> origTxn, Map<String,BigDecimal> exchangeRate) {
+		List<CellValue> txns = new ArrayList<>();
 		CellValueDefault cellValue = new CellValueDefault();
 		cellValue.setValue(BigDecimal.ONE);
 		txns.add(cellValue);
@@ -153,7 +173,7 @@ public class ReportServiceImpl implements ReportService {
 	
 	
 
-	private ReportSummary createReport(Set<String> headers, Set<String> sections, List<CellValueDefault> txns) {
+	private ReportSummary createReport(Set<String> headers, Set<String> sections, List<CellValue> txns) {
 		ReportSummary accountCashBalanceReportBase = new ReportSummary();
 		accountCashBalanceReportBase.setHeaders(headers);
 		accountCashBalanceReportBase.setSections(getSections(sections,txns ));
@@ -161,7 +181,7 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 
-	private DataTable createSection(String section,  List<CellValueDefault> txns) {
+	private DataTable createSection(String section,  List<CellValue> txns) {
 		DataTable moneyTable = new DataTable();
 		Table<String, String, CellValue> table = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
 		// populate table
@@ -179,10 +199,10 @@ public class ReportServiceImpl implements ReportService {
 		return moneyTable;
 	}
 
-	private Map<String, DataTable> getSections(Set<String> sections,  List<CellValueDefault> txns) {
+	private Map<String, DataTable> getSections(Set<String> sections,  List<CellValue> txns) {
 		Map<String, DataTable> sectionmap = new LinkedHashMap<>();
 		for (String section : sections) {
-			List<CellValueDefault> filteredTxns =  txns; 
+			List<CellValue> filteredTxns =  txns; 
 			sectionmap.put("USD", createSection(section, filteredTxns));
 		}
 		return sectionmap;
