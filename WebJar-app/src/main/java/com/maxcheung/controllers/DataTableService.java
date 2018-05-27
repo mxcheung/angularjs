@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.Table;
+import com.maxcheung.models.CellType;
 import com.maxcheung.models.CellValue;
 import com.maxcheung.models.DataTable;
 
@@ -26,6 +27,8 @@ public interface DataTableService {
     Map<String, CellValue> getRowTotal(Table<String, String, CellValue> table);
 
 	List<BigDecimal> convertToListAmounts(Table<String, String, CellValue> table);
+
+	Table<String, String, CellValue> transformTable(Table<String, String, CellValue> source, CellType cellType);
 
 
 }

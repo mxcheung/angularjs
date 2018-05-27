@@ -2,7 +2,6 @@ package com.maxcheung.controllers;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Table;
@@ -31,6 +31,9 @@ public class ReportRestController {
 
 	@Autowired
 	private ReportService reportCashBalanceService;
+	
+	@Autowired
+	private DataTableService dataTableService;
 
 	@RequestMapping(method = RequestMethod.GET, path = "/cash-balance")
 	public AccountCashBalanceSummary getAccountCashBalanceSummary() {
@@ -43,20 +46,20 @@ public class ReportRestController {
 	public ReportComboTemplate getHighCartData() {
 		LOG.info("Get getHighCartData");
 
-		DataTableServiceImpl dataTableServiceImpl = new DataTableServiceImpl();
+//		DataTableServiceImpl dataTableServiceImpl = new DataTableServiceImpl();
 
 		Table<String, String, CellValue> table = getTable();
-		Table<String, String, CellValue> highChartTable = dataTableServiceImpl.transformTable(table, CellType.HIGHCHARTPIE);
-		Table<String, String, CellValue> highchartBarTable = dataTableServiceImpl.transformTable(table, CellType.HIGHCHARTBAR);
+		Table<String, String, CellValue> highChartTable = dataTableService.transformTable(table, CellType.HIGHCHARTPIE);
+		Table<String, String, CellValue> highchartBarTable = dataTableService.transformTable(table, CellType.HIGHCHARTBAR);
 		List<CellValue> highchartpieData = highChartTable.values()
 				.stream()
 				.collect(Collectors.toList());
 		
-		List<BigDecimal> smartChartData = dataTableServiceImpl.convertToListAmounts(highChartTable);
+		List<BigDecimal> smartChartData = dataTableService.convertToListAmounts(highChartTable);
 
 		List<List<Object>> highchartBarValue = highchartBarTable.values().stream()
 			.map(x -> (CellValueHighChartBar) x)
-			.map(y ->   y.getSpecialValue())
+			.map(y ->   y.getPairValue())
 			.collect(Collectors.toList());  
 		
 		
@@ -69,6 +72,19 @@ public class ReportRestController {
 		return reportComboTemplate;
 	}
 
+	@RequestMapping( method = RequestMethod.GET, path = "/chartdata")
+	public Table<String, String, CellValue> getChartData(@RequestParam("cellType") CellType cellTypeParam) {
+		LOG.info("Get getHighCartData");
+	//	CellType cellType = CellType.valueOf(cellTypeParam);
+		// CellType.HIGHCHARTPIE
+		// CellType.HIGHCHARTBAR
+		Table<String, String, CellValue> table = getTable();
+		Table<String, String, CellValue> dest = dataTableService.transformTable(table, cellTypeParam);
+		return dest;
+	}
+
+	
+	
 	@RequestMapping(method = RequestMethod.GET, path = "/highchart2")
 	public Table<String, String, CellValue> getHighCartData2() {
 		LOG.info("Get getHighCartData");
@@ -79,9 +95,9 @@ public class ReportRestController {
 	@RequestMapping(method = RequestMethod.GET, path = "/highchart3")
 	public Table<String, String, CellValue> getHighCartData3() {
 		LOG.info("Get getHighCartData");
-		DataTableServiceImpl dataTableServiceImpl = new DataTableServiceImpl();
+//		DataTableServiceImpl dataTableServiceImpl = new DataTableServiceImpl();
 		Table<String, String, CellValue> table = getTable();
-		Table<String, String, CellValue> dest = dataTableServiceImpl.transformTable(table, CellType.HIGHCHARTPIE);
+		Table<String, String, CellValue> dest = dataTableService.transformTable(table, CellType.HIGHCHARTPIE);
 		return dest;
 	}
 

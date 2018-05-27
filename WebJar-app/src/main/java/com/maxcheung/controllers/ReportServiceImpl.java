@@ -29,14 +29,14 @@ public class ReportServiceImpl implements ReportService {
 	private static final String CASH_REPORT_ACCT_PROJECTION_MAP = "CASH_REPORT_ACCT_PROJECTION_MAP";
 	private static final String CASH_REPORT_ACCT_DEPOSIT_MAP = "CASH_REPORT_ACCT_DEPOSIT_MAP";
 	
-
+	private DepositService depositService;
 
     /**
      * {@inheritDoc}
      */
     @Override
 	public AccountCashBalanceSummary getAccountCashBalanceSummary() {
-    	DepositService depositServiceImpl = new DepositServiceImpl();
+    	 depositService = new DepositServiceImpl();
 
     	/*
 		 *  1.1. Fetch Currencies
@@ -140,9 +140,14 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	private List<CellValue> fetchDepositTxns(LocalDate enquiryDt) {
+		Map<LocalDate, Map<String, BigDecimal>> summaryByDate = depositService.summarisePerCurrency();
+		Map<String, BigDecimal> transactionsperCcy = summaryByDate.get(enquiryDt);
 		List<CellValue> txns = new ArrayList<>();
 		CellValueDefault cellValue = new CellValueDefault();
+		cellValue.setColumnKey(BASE_CCY);
+		BigDecimal amt = transactionsperCcy.get(cellValue.getColumnKey());
 		cellValue.setValue(BigDecimal.ONE);
+		cellValue.setValue( amt);
 		txns.add(cellValue);
 		return txns;
 	}
