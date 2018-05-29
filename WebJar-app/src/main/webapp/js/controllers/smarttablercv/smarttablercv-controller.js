@@ -1,5 +1,5 @@
-app.controller('SmartTableController', function($scope, $http, SmartTableService, $location,
-		 $route, $routeParams) {
+app.controller('SmartTableRCVController', function($scope, $http, $location,
+		SmartTableRCVService, $route, $routeParams) {
 	// Retrieve selected task
 	$scope.greeting = "Hello Smart World2";
 
@@ -20,7 +20,7 @@ app.controller('SmartTableController', function($scope, $http, SmartTableService
 
 	$scope.data2.greeting = "Melbourne Employees";
 
-	SmartTableService.getAllEmployees()
+	SmartTableRCVService.getAllEmployees()
 	 .then(function success(response) {
 		 $scope.newemployees = response.data;
 		 console.log('newemployees==>');
@@ -29,7 +29,8 @@ app.controller('SmartTableController', function($scope, $http, SmartTableService
 	.catch(function error(rejection) {
 		$scope.error = rejection;
 	});
-
+	
+	
 	
 	$scope.loading = false;
 	$scope.getData = function() {

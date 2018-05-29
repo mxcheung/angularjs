@@ -1,6 +1,7 @@
 package com.maxcheung.controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.collect.Table;
 import com.google.common.collect.Tables;
 import com.maxcheung.models.AccountCashBalanceSummary;
+import com.maxcheung.models.Bond;
 import com.maxcheung.models.CellType;
 import com.maxcheung.models.CellValue;
 import com.maxcheung.models.CellValueDefault;
 import com.maxcheung.models.CellValueHighChartBar;
+import com.maxcheung.models.DataTable;
 import com.maxcheung.models.ReportComboTemplate;
+import com.maxcheung.models.ReportSmartRCVTemplate;
 
 @RestController
 @RequestMapping("report")
@@ -113,6 +117,60 @@ public class ReportRestController {
 		return data;
 	}
 
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/SmartTableRCV")
+	public ReportSmartRCVTemplate getSmartTableRCV() {
+		LOG.info("Get SmartTableRCV");
+		Table<String, String, String> table = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
+//		Table<String, String, CellValue> sales = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
+		Bond bond = new Bond();
+		bond.setName("James");
+		bond.setSalary(BigDecimal.valueOf(2000));
+		bond.setAge(18L);
+		bond.setDob(LocalDate.of(2000, 01, 28));
+
+		table.put("Row1", "Profile", "Profile1");
+		table.put("Row1", "Name", bond.getName());
+		table.put("Row1", "Salary", bond.getSalary().toString());
+		table.put("Row1", "Age", bond.getAge().toString());
+		table.put("Row1", "Dob", bond.getDob().toString());
+		table.put("Row1", "Sales", "");
+		table.put("Row1", "EmployeeId", "Employee1");
+		table.put("Row2", "Profile", "Profile2");
+		table.put("Row2", "Name", "Mary");
+		table.put("Row2", "Salary", "1200");
+		table.put("Row2", "Age", "35");
+		table.put("Row2", "EmployeeId", "Employee2");
+		
+		CellValue cellValue1 = new CellValueDefault();
+		cellValue1.setRowKey("Employee1");
+		cellValue1.setColumnKey("Sales");
+		cellValue1.setValue(BigDecimal.TEN);
+
+		CellValue cellValue2 = new CellValueDefault();
+		cellValue2.setRowKey("Employee1");
+		cellValue2.setColumnKey("Sales");
+		cellValue2.setValue(BigDecimal.ONE);
+
+		CellValue cellValue3 = new CellValueDefault();
+		cellValue3.setRowKey("Employee2");
+		cellValue3.setColumnKey("Sales");
+		cellValue3.setValue(BigDecimal.ONE);
+
+		List<CellValue> moneyCells = new ArrayList<>();
+		moneyCells.add(cellValue1);
+		moneyCells.add(cellValue2);
+		moneyCells.add(cellValue3);
+		DataTable sales = dataTableService.createDataTableFromList(moneyCells );
+
+		
+		ReportSmartRCVTemplate reportSmartRCVTemplate = new ReportSmartRCVTemplate();
+		reportSmartRCVTemplate.setTable(table);
+		reportSmartRCVTemplate.setSales(sales.getTable());
+		return reportSmartRCVTemplate;
+	}
+
+	
 	@RequestMapping(method = RequestMethod.GET, path = "/DefaultchartTable")
 	public Table<String, String, CellValue> getDefaultDataTable() {
 		LOG.info("Get DefaultchartTable");

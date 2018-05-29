@@ -1,0 +1,47 @@
+<div class="container">
+	<h1>{{data.greeting}}</h1>
+	<div ng-show="loading"><h3>Loading...</h3></div>
+	<table st-table="display_records"  st-safe-src="employees" class="table table-striped">
+	<thead>
+		<tr>
+			<th ng-repeat="colheader in newemployees.headers">{{colheader | uppercase}}</th>
+			<th>Profile</th>
+			<th width="100px">Name</th>
+			<th st-sort="salary">Salary</th>
+			<th>Age</th>
+			<th>Action</th>
+		</tr>
+		<tr>
+			<th colspan="5">
+				<input st-search placeholder="global search" class="input-sm form-control" type="search"/>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in newemployees.table">
+			<td><img class="img-thumbnail img-responsive" alt="image" src="img/user.jpg" style="width: 50px; height: 50px;"/></td>
+			<td>{{row['Name']}}</td>
+			<td>{{row['Salary'] | currency}}</td>
+			<td>{{row['Age']}}</td>
+			<td>{{row['Dob']}}</td>
+			<td>{{newemployees.sales[row['EmployeeId']]['Sales'].valueAmt | currency }}</td>
+			<td>{{row['EmployeeId']}}</td>
+			<td>{{row.employee_salary}}</td>
+			<td>{{row.employee_age}}</td>
+			<td>
+				<a type="button" class="btn btn-sm btn-info">
+					<i class="glyphicon glyphicon-eye-open">
+					</i>
+				</a>
+			</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="5" class="text-center">
+				<div st-pagination="" st-items-by-page="itemsByPage"></div>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+</div>

@@ -54,6 +54,11 @@ var app = angular.module('ToDoListApp', [
 					controller: 'SmartTableController',
 					templateUrl: '/views/smarttable/smarttable.html'
 				})
+				.when('/smarttablercv',
+				{
+					controller: 'SmartTableRCVController',
+					templateUrl: '/views/smarttablercv/smarttablercv.html'
+				})
 				.when('/highchartfinancial',
 				{
 					controller: 'HighChartFinancialController',
