@@ -16,9 +16,14 @@ public interface CellValue {
 
 	void setColumnKey(String columnKey);
 
-	BigDecimal getValue();
+	BigDecimal getBigDecimalValue();
+	
+	String getStringCellValue();
+	
 
-	void setValue(BigDecimal value);
+	void setCellValue(BigDecimal value);
+
+	void setCellValue(String value);
 
 	CellType getCellType();
 

@@ -3,7 +3,7 @@ package com.maxcheung.controllers;
 import org.dozer.DozerBeanMapper;
 import org.springframework.stereotype.Service;
 
-import com.maxcheung.models.CellType;
+import com.maxcheung.models.FormatType;
 import com.maxcheung.models.CellValue;
 import com.maxcheung.models.CellValueHighChartBar;
 import com.maxcheung.models.CellValueHighChartPie;
@@ -20,14 +20,14 @@ public class CellValueConverterImpl implements CellValueConverter{
      * Convert from Cell Value to Cell Value
      * 
      * @param source
-     * @param cellType
+     * @param formatType
      * @return convert CellValue
      */
 	@Override
-    public CellValue  convert(CellValue source,  CellType cellType) {
-    	if ( cellType == CellType.HIGHCHARTPIE) {
+    public CellValue  convert(CellValue source,  FormatType formatType) {
+    	if ( formatType == FormatType.HIGHCHARTPIE) {
     		return mapper.map(source, CellValueHighChartPie.class);
-    	} else  if ( cellType == CellType.HIGHCHARTBAR) {
+    	} else  if ( formatType == FormatType.HIGHCHARTBAR) {
     		return mapper.map(source, CellValueHighChartBar.class);
     	}
         return source;

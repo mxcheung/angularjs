@@ -20,6 +20,7 @@ import com.maxcheung.models.CellType;
 import com.maxcheung.models.CellValue;
 import com.maxcheung.models.CellValueDefault;
 import com.maxcheung.models.DataTable;
+import com.maxcheung.models.FormatType;
 
 @Service
 public class DataTableServiceImpl implements DataTableService {
@@ -39,7 +40,7 @@ public class DataTableServiceImpl implements DataTableService {
 			CellValue moneyCell = new CellValueDefault();
 			moneyCell.setRowKey(rowKey);
 			moneyCell.setColumnKey(columnKey);
-			moneyCell.setValue(value);
+			moneyCell.setCellValue(value);
 			monies.add(moneyCell);
 		}
 		return monies;
@@ -71,7 +72,7 @@ public class DataTableServiceImpl implements DataTableService {
 
 	@Override
 	public List<BigDecimal> convertToListAmounts(Table<String, String, CellValue> table) {
-		List<BigDecimal> amounts = table.values().stream().map(x -> x.getValue()).collect(Collectors.toList());
+		List<BigDecimal> amounts = table.values().stream().map(x -> x.getBigDecimalValue()).collect(Collectors.toList());
 		return amounts;
 
 	}
@@ -89,7 +90,7 @@ public class DataTableServiceImpl implements DataTableService {
 	@Override
 	public CellValue calcTotal(Map<String, CellValue> totals) {
 		CellValue moneyCell = new CellValueDefault();
-		moneyCell.setValue(totals.values().stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
+		moneyCell.setCellValue(totals.values().stream().map(x -> x.getBigDecimalValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
 		return moneyCell;
 	}
 
@@ -117,17 +118,17 @@ public class DataTableServiceImpl implements DataTableService {
 	}
 
 	@Override
-	public Table<String, String, CellValue> transformTable(Table<String, String, CellValue> source, CellType cellType) {
+	public Table<String, String, CellValue> transformTable(Table<String, String, CellValue> source, FormatType formatType) {
 		Table<String, String, CellValue> dest = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
 		for (Cell<String, String, CellValue> cell : source.cellSet()) {
-			dest.put(cell.getRowKey(), cell.getColumnKey(), convert(cell.getValue(), cellType));
+			dest.put(cell.getRowKey(), cell.getColumnKey(), convert(cell.getValue(), formatType));
 		}
 		;
 		return dest;
 	}
 
-	public CellValue convert(CellValue source, CellType cellType) {
-		return converter.convert(source, cellType);
+	public CellValue convert(CellValue source, FormatType formatType) {
+		return converter.convert(source, formatType);
 		// CellValue dest = null;
 		// if ( cellType == CellType.HIGHCHARTPIE) {
 		// return mapper.map(source, CellValueHighChartPie.class);
@@ -148,8 +149,13 @@ public class DataTableServiceImpl implements DataTableService {
 	public Table<String, String, CellValue> populateTable(List<CellValue> moneyCells) {
 		Table<String, String, CellValue> table = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
 		for (CellValue moneyCell : moneyCells) {
-			CellValue existingMoneyCell = getNewBalance(table, moneyCell);
-			table.put(moneyCell.getRowKey(), moneyCell.getColumnKey(), existingMoneyCell);
+			 switch(moneyCell.getCellType()) {
+			 case CELLTYPE_BIGDECIMAL:
+				 table.put(moneyCell.getRowKey(), moneyCell.getColumnKey(),  getNewBalance(table, moneyCell));
+				 break;
+			 default:
+				 table.put(moneyCell.getRowKey(), moneyCell.getColumnKey(), moneyCell);
+			 }
 		}
 		return table;
 	}
@@ -165,13 +171,9 @@ public class DataTableServiceImpl implements DataTableService {
 	private CellValue getNewBalance(Table<String, String, CellValue> table, CellValue moneyCell) {
 		CellValue existingMoneyCell = table.get(moneyCell.getRowKey(), moneyCell.getColumnKey());
 		if (existingMoneyCell == null) {
-			if (moneyCell.getCellType() == CellType.DEFAULT) {
-
 				existingMoneyCell = new CellValueDefault();
-			}
-
 		}
-		existingMoneyCell.setValue(existingMoneyCell.getValue().add(moneyCell.getValue()));
+		existingMoneyCell.setCellValue(existingMoneyCell.getBigDecimalValue().add(moneyCell.getBigDecimalValue()));
 		return existingMoneyCell;
 	}
 }

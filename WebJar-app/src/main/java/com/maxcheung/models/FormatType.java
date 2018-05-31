@@ -1,9 +1,7 @@
 package com.maxcheung.models;
 
-public enum CellType {
+public enum FormatType {
 	DEFAULT,
-	CELLTYPE_BIGDECIMAL,
-	CELLTYPE_STRING,
 	HIGHCHARTPIE,
 	HIGHCHARTBAR
 }

@@ -134,7 +134,7 @@ public class ReportServiceImpl implements ReportService {
 	private List<CellValue> fetchProjectionTxns(LocalDate enquiryDt) {
 		List<CellValue> txns = new ArrayList<>();
 		CellValueDefault cellValue = new CellValueDefault();
-		cellValue.setValue(BigDecimal.ONE);
+		cellValue.setCellValue(BigDecimal.ONE);
 		txns.add(cellValue);
 		return txns;
 	}
@@ -146,8 +146,8 @@ public class ReportServiceImpl implements ReportService {
 		CellValueDefault cellValue = new CellValueDefault();
 		cellValue.setColumnKey(BASE_CCY);
 		BigDecimal amt = transactionsperCcy.get(cellValue.getColumnKey());
-		cellValue.setValue(BigDecimal.ONE);
-		cellValue.setValue( amt);
+		cellValue.setCellValue(BigDecimal.ONE);
+		cellValue.setCellValue( amt);
 		txns.add(cellValue);
 		return txns;
 	}
@@ -163,7 +163,7 @@ public class ReportServiceImpl implements ReportService {
 	public List<CellValue> mapTxnsAccountToAccountGroup(List<CellValue> accountBalances, Map<String,String> accountMap) {
 		List<CellValue> convertTxns = new ArrayList<>();
 		CellValueDefault cellValue = new CellValueDefault();
-		cellValue.setValue(BigDecimal.ONE);
+		cellValue.setCellValue(BigDecimal.ONE);
 		convertTxns.add(cellValue);
 		return convertTxns;
 	}
@@ -171,7 +171,7 @@ public class ReportServiceImpl implements ReportService {
 	private List<CellValue> convertTxnsBase(List<CellValue> origTxn, Map<String,BigDecimal> exchangeRate) {
 		List<CellValue> txns = new ArrayList<>();
 		CellValueDefault cellValue = new CellValueDefault();
-		cellValue.setValue(BigDecimal.ONE);
+		cellValue.setCellValue(BigDecimal.ONE);
 		txns.add(cellValue);
 		return txns;
 	}
@@ -191,9 +191,9 @@ public class ReportServiceImpl implements ReportService {
 		Table<String, String, CellValue> table = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
 		// populate table
 		CellValueDefault value = new CellValueDefault();
-		value.setValue(BigDecimal.TEN);
+		value.setCellValue(BigDecimal.TEN);
 		CellValueDefault value1 = new CellValueDefault();
-		value1.setValue(BigDecimal.ONE);
+		value1.setCellValue(BigDecimal.ONE);
 		table.put("Row1", "USD", value );
 		table.put("Row1", "HKD", value1 );
 		table.put("Row3", "EUR", value );
@@ -224,7 +224,7 @@ public class ReportServiceImpl implements ReportService {
 	//		ReportValue total = new ReportValue();
 	//		Collection<ReportValue> values = table.rowMap().get(rowKey).values();
 	//		for (ReportValue value : values) {
-	//			total.setValue(total.getValue().add(value.getValue()));
+	//			total.setCellValue(total.getValue().add(value.getValue()));
 	//		}
 
 //			rowTotals.put(rowKey, total);
@@ -240,7 +240,7 @@ public class ReportServiceImpl implements ReportService {
 //			ReportValue total = new ReportValue();
 //			Collection<ReportValue> values = table.columnMap().get(columnKey).values();
 //			for (ReportValue value : values) {
-//				total.setValue(total.getValue().add(value.getValue()));
+//				total.setCellValue(total.getValue().add(value.getValue()));
 //			}
 			columnTotals.put(columnKey, getGrandTotal(table.column(columnKey)));
 		}
@@ -249,7 +249,7 @@ public class ReportServiceImpl implements ReportService {
 	
 	public CellValue getGrandTotal(Map<String, CellValue> totals) {
 		CellValue moneyCell = new CellValueDefault();
-		moneyCell.setValue(totals.values().stream().map(x -> x.getValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
+		moneyCell.setCellValue(totals.values().stream().map(x -> x.getBigDecimalValue()).reduce(BigDecimal.ZERO, BigDecimal::add));
 		return moneyCell;
 	}
 	/*

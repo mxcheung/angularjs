@@ -7,13 +7,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public abstract class AbsCellValue implements CellValue {
 
 	@JsonIgnore
-	public String rowKey;
+	private String rowKey;
 	@JsonIgnore
-	public String columnKey;
+	private String columnKey;
 
 	@JsonIgnore
-	public BigDecimal value = BigDecimal.ZERO;
-
+	private String value;
+	
+	@JsonIgnore
+	private CellType cellType;
+	
 	@Override
 	public String getRowKey() {
 		return rowKey;
@@ -34,18 +37,53 @@ public abstract class AbsCellValue implements CellValue {
 		this.columnKey = columnKey;
 	}
 
+	@JsonIgnore
 	@Override
-	public BigDecimal getValue() {
+	public BigDecimal getBigDecimalValue() {
+		 switch(getCellType()) {
+		 case CELLTYPE_BIGDECIMAL:
+			 return new BigDecimal(value);
+		 default:
+			 return BigDecimal.ZERO;
+		 }
+	}
+
+	@JsonIgnore
+	@Override
+	public String getStringCellValue() {
 		return value;
+	}
+	
+	@Override
+	public void setCellValue(BigDecimal value) {
+		this.cellType = CellType.CELLTYPE_BIGDECIMAL;
+		this.value = value.toPlainString();
 	}
 
 	@Override
-	public void setValue(BigDecimal value) {
+	public void setCellValue(String value) {
+		this.cellType = CellType.CELLTYPE_STRING;
 		this.value = value;
 	}
 
 	@Override
-	@JsonIgnore
-	public abstract CellType getCellType();
+	public CellType getCellType() {
+		return cellType != null ? cellType : CellType.CELLTYPE_STRING;
+	}
+	
+	public void setCellType(CellType cellType) {
+		this.cellType = cellType;
+	}
 
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	
+	
+	
 }

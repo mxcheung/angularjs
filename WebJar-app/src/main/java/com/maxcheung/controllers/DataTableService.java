@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.collect.Table;
-import com.maxcheung.models.CellType;
+import com.maxcheung.models.FormatType;
 import com.maxcheung.models.CellValue;
 import com.maxcheung.models.DataTable;
 
@@ -28,7 +28,7 @@ public interface DataTableService {
 
 	List<BigDecimal> convertToListAmounts(Table<String, String, CellValue> table);
 
-	Table<String, String, CellValue> transformTable(Table<String, String, CellValue> source, CellType cellType);
+	Table<String, String, CellValue> transformTable(Table<String, String, CellValue> source, FormatType cellType);
 
 
 }

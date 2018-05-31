@@ -5,12 +5,6 @@ import java.util.List;
 
 public class CellValueHighChartBar extends AbsCellValue   {
 
-	
-	@Override
-	public CellType getCellType() {
-		return CellType.HIGHCHARTBAR;
-	}
-
 	// Bar Chart return list of list
 	/*
 	 * {"highchartbar":[["Microsoft Internet Explorer",56.33],["Chrome",24.03],
@@ -18,8 +12,9 @@ public class CellValueHighChartBar extends AbsCellValue   {
 	 */
 //	@JsonIgnore
 	public List<Object> getPairValue() {
-		return Arrays.asList(getRowKey(), super.getValue());
+		return Arrays.asList(getRowKey(), super.getBigDecimalValue());
 	}
+
 	
 	
 //    name: "Firefox",

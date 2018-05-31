@@ -21,7 +21,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
-
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration

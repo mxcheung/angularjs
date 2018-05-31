@@ -9,6 +9,8 @@
 			<th width="100px">Name</th>
 			<th st-sort="salary">Salary</th>
 			<th>Age</th>
+			<th>Date of Birth</th>
+			<th>Sales</th>
 			<th>Action</th>
 		</tr>
 		<tr>
@@ -18,16 +20,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in newemployees.table">
+		<tr st-select-row="row" st-select-mode="multiple" ng-repeat="row in newemployees.dataTable.table">
 			<td><img class="img-thumbnail img-responsive" alt="image" src="img/user.jpg" style="width: 50px; height: 50px;"/></td>
-			<td>{{row['Name']}}</td>
-			<td>{{row['Salary'] | currency}}</td>
-			<td>{{row['Age']}}</td>
-			<td>{{row['Dob']}}</td>
-			<td>{{newemployees.sales[row['EmployeeId']]['Sales'].value | currency }}</td>
-			<td>{{row['EmployeeId']}}</td>
-			<td>{{row.employee_salary}}</td>
-			<td>{{row.employee_age}}</td>
+			<td>{{row['Name'].value}}</td>
+			<td>{{row['Salary'].value | currency}}</td>
+			<td>{{row['Age'].value}}</td>
+			<td>{{row['Dob'].value}}</td>
+			<td>{{row['Sales'].value}}</td>
 			<td>
 				<a type="button" class="btn btn-sm btn-info">
 					<i class="glyphicon glyphicon-eye-open">
@@ -38,9 +37,12 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="5" class="text-center">
-				<div st-pagination="" st-items-by-page="itemsByPage"></div>
-			</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>{{newemployees.dataTable.columnTotals['Sales'].value}}</td>
 		</tr>
 	</tfoot>
 </table>
