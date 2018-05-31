@@ -26,7 +26,7 @@
 			<td>{{row['Salary'].value | currency}}</td>
 			<td>{{row['Age'].value}}</td>
 			<td>{{row['Dob'].value}}</td>
-			<td>{{row['Sales'].value}}</td>
+			<td>{{ (row['Sales'].value || 0 ) | currency}}</td>
 			<td>
 				<a type="button" class="btn btn-sm btn-info">
 					<i class="glyphicon glyphicon-eye-open">
@@ -42,7 +42,7 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td>{{newemployees.dataTable.columnTotals['Sales'].value}}</td>
+			<td>{{ (newemployees.dataTable.columnTotals['Sales'].value || 0) | currency }}</td>
 		</tr>
 	</tfoot>
 </table>

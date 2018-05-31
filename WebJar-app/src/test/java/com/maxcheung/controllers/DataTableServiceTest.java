@@ -34,9 +34,18 @@ public class DataTableServiceTest {
 		bond1.setSalary(BigDecimal.valueOf(1200));
 		bond1.setAge(35L);
 
+		Bond bond2 = new Bond();
+		bond2.setId("id2");
+		bond2.setName("Mark");
+
 
 
 		List<CellValue> moneyCells = new ArrayList<>();
+
+//		moneyCells.add(new CellValueDefault(bond2.getId(), "Salary", bond2.getSalary()));
+//		moneyCells.add(new CellValueDefault(bond.getId(), "Sales", BigDecimal.TEN));
+//		moneyCells.add(new CellValueDefault(bond.getId(), "Sales", BigDecimal.TEN));
+
 		moneyCells.add(new CellValueDefault(bond.getId(), "Name", bond.getName()));
 		moneyCells.add(new CellValueDefault(bond.getId(), "Salary", bond.getSalary()));
 		moneyCells.add(new CellValueDefault(bond.getId(), "Age", bond.getAge().toString()));
@@ -47,6 +56,7 @@ public class DataTableServiceTest {
 		moneyCells.add(new CellValueDefault(bond1.getId(), "Salary", bond1.getSalary()));
 		moneyCells.add(new CellValueDefault(bond1.getId(), "Age", bond1.getAge().toString()));
 		moneyCells.add(new CellValueDefault(bond1.getId(), "Sales", BigDecimal.ONE));
+		moneyCells.add(new CellValueDefault(bond2.getId(), "Salary", bond2.getSalary()));
 		DataTable sales = dataTableService.createDataTableFromList(moneyCells);
 		CellValue cellValue = sales.getTable().get(bond.getId(), "Sales");
 		assertEquals(BigDecimal.valueOf(20),cellValue.getBigDecimalValue());

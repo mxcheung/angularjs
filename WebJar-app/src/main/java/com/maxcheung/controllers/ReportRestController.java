@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -184,6 +185,9 @@ public class ReportRestController {
 		bond1.setSalary(BigDecimal.valueOf(1200));
 		bond1.setAge(35L);
 
+		Bond bond2 = new Bond();
+		bond2.setId("id3");
+		bond2.setName("Mark");
 
 
 		List<CellValue> moneyCells = new ArrayList<>();
@@ -197,6 +201,8 @@ public class ReportRestController {
 		moneyCells.add(new CellValueDefault(bond1.getId(), "Salary", bond1.getSalary()));
 		moneyCells.add(new CellValueDefault(bond1.getId(), "Age", bond1.getAge().toString()));
 		moneyCells.add(new CellValueDefault(bond1.getId(), "Sales", BigDecimal.ONE));
+		moneyCells.add(new CellValueDefault(bond2.getId(), "Name", bond2.getName()));
+		moneyCells.add(new CellValueDefault(bond2.getId(), "Salary", bond2.getSalary()));
 		DataTable dataTable = dataTableService.createDataTableFromList(moneyCells);
 
 		ReportSmartRCVXTemplate reportSmartRCVXTemplate = new ReportSmartRCVXTemplate();

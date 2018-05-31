@@ -1,6 +1,7 @@
 package com.maxcheung.models;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -57,13 +58,13 @@ public abstract class AbsCellValue implements CellValue {
 	@Override
 	public void setCellValue(BigDecimal value) {
 		this.cellType = CellType.CELLTYPE_BIGDECIMAL;
-		this.value = value.toPlainString();
+		this.value = value != null ? value.toPlainString() : BigDecimal.ZERO.toPlainString();
 	}
 
 	@Override
 	public void setCellValue(String value) {
 		this.cellType = CellType.CELLTYPE_STRING;
-		this.value = value;
+		this.value = value != null ? value : "";
 	}
 
 	@Override
