@@ -25,12 +25,21 @@
 	</properties>
 
 	<dependencies>
+
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-guava -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-guava</artifactId>
 			<version>2.9.5</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -74,13 +83,9 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-logging</artifactId>
 		</dependency>
-		
-<!-- 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jta-bitronix</artifactId>
-		</dependency>
- -->		
+
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-jta-bitronix</artifactId> 
+			</dependency> -->
 
 
 
@@ -97,8 +102,7 @@
 			<version>1.5.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-route -->
-<!-- 
- -->		
+		<!-- -->
 
 
 		<!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-resource -->
@@ -120,145 +124,105 @@
 			<artifactId>angular-smart-table</artifactId>
 			<version>2.1.8</version>
 		</dependency>
-		
-		
+
+
 		<!-- https://mvnrepository.com/artifact/org.webjars/angular-chart.js -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>angular-chart.js</artifactId>
-		    <version>1.1.1</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-chart.js</artifactId>
+			<version>1.1.1</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.webjars/chartjs -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>chartjs</artifactId>
-		    <version>2.7.2</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>chartjs</artifactId>
+			<version>2.7.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>webjars-locator</artifactId>
 			<version>0.34</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.webjars/highcharts -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>highcharts</artifactId>
-		    <version>6.1.0</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>highcharts</artifactId>
+			<version>6.1.0</version>
 		</dependency>
 
-				
+
 		<!-- https://mvnrepository.com/artifact/org.webjars.npm/angular-chartist.js -->
 		<dependency>
-		    <groupId>org.webjars.npm</groupId>
-		    <artifactId>angular-chartist.js</artifactId>
-		    <version>3.3.9</version>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>angular-chartist.js</artifactId>
+			<version>3.3.9</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars/raphaeljs -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>raphaeljs</artifactId>
-		    <version>2.1.4</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>raphaeljs</artifactId>
+			<version>2.1.4</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars/morrisjs -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>morrisjs</artifactId>
-		    <version>0.5.1</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>morrisjs</artifactId>
+			<version>0.5.1</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>jquery</artifactId>
-		    <version>1.9.1</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>1.9.1</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery-flot -->
 		<dependency>
-		    <groupId>org.webjars.bower</groupId>
-		    <artifactId>jquery-flot</artifactId>
-		    <version>0.8.3</version>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>jquery-flot</artifactId>
+			<version>0.8.3</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.webjars/flot -->
 		<dependency>
-		    <groupId>org.webjars</groupId>
-		    <artifactId>flot</artifactId>
-		    <version>0.8.3-1</version>
+			<groupId>org.webjars</groupId>
+			<artifactId>flot</artifactId>
+			<version>0.8.3-1</version>
 		</dependency>
 
-		
+
 		<dependency>
-		  <groupId>org.apache.commons</groupId>
-		  <artifactId>commons-configuration2</artifactId>
-		  <version>2.2</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-configuration2</artifactId>
+			<version>2.2</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/net.sf.dozer/dozer -->
 		<dependency>
-		    <groupId>net.sf.dozer</groupId>
-		    <artifactId>dozer</artifactId>
-		    <version>5.5.1</version>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.5.1</version>
 		</dependency>
 
 
-<!-- 
-
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>momentjs</artifactId>
-			<version>2.22.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>ng-csv</artifactId>
-			<version>0.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>ngstorage</artifactId>
-			<version>0.3.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>ng-csv</artifactId>
-			<version>0.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>angular-currency-format</artifactId>
-			<version>1.0.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>angularjs-dropdown-multiselect</artifactId>
-			<version>1.11.8</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>angular-sanitize</artifactId>
-			<version>1.3.11</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>datatables</artifactId>
-			<version>1.10.16</version>
-		</dependency>
-
- -->
+		<!-- <dependency> <groupId>org.webjars.bower</groupId> <artifactId>momentjs</artifactId> 
+			<version>2.22.0</version> </dependency> <dependency> <groupId>org.webjars</groupId> 
+			<artifactId>ng-csv</artifactId> <version>0.3.1</version> </dependency> <dependency> 
+			<groupId>org.webjars.bower</groupId> <artifactId>ngstorage</artifactId> <version>0.3.0</version> 
+			</dependency> <dependency> <groupId>org.webjars</groupId> <artifactId>ng-csv</artifactId> 
+			<version>0.3.1</version> </dependency> <dependency> <groupId>org.webjars.bower</groupId> 
+			<artifactId>angular-currency-format</artifactId> <version>1.0.6</version> 
+			</dependency> <dependency> <groupId>org.webjars</groupId> <artifactId>bootstrap</artifactId> 
+			<version>1.3.1</version> </dependency> <dependency> <groupId>org.webjars</groupId> 
+			<artifactId>angularjs-dropdown-multiselect</artifactId> <version>1.11.8</version> 
+			</dependency> <dependency> <groupId>org.webjars</groupId> <artifactId>angular-sanitize</artifactId> 
+			<version>1.3.11</version> </dependency> <dependency> <groupId>org.webjars</groupId> 
+			<artifactId>datatables</artifactId> <version>1.10.16</version> </dependency> -->
 
 
 

@@ -178,4 +178,21 @@ public class DataTableServiceImpl implements DataTableService {
 		existingMoneyCell.setCellValue(existingMoneyCell.getBigDecimalValue().add(moneyCell.getBigDecimalValue()));
 		return existingMoneyCell;
 	}
+	
+	
+	public static <R, C, V> Table<R, C, V> table(Map<R, Map<C, V>> fromTable)
+	{
+	    Table<R, C, V> table =  Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
+	    for (R rowKey : fromTable.keySet())
+	    {
+	        Map<C, V> rowMap = fromTable.get(rowKey);
+	        for (C columnKey : rowMap.keySet())
+	        {
+	            V value = rowMap.get(columnKey);
+	            table.put(rowKey, columnKey, value);
+	        }
+	    }
+	    return table;
+	}
+
 }
