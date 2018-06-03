@@ -43,20 +43,23 @@ public class ReportControllerTest {
 
 	@Before
 	public void setUp() {
-		ObjectMapper mapper = getMapper();
+	//	ObjectMapper mapper = getMapper();
 
 		// Create a list for the message converters
 
 		// Create a Rest template
-		restTemplate = new RestTemplate();
+	//	restTemplate = new RestTemplate();
 
 		List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 		// Add the Jackson Message converter
-		messageConverters.add(new MappingJackson2HttpMessageConverter(mapper));
+	//	messageConverters.add(new MappingJackson2HttpMessageConverter(mapper));
 
 		// Add the message converters to the restTemplate
-		restTemplate.setMessageConverters(messageConverters);
-		template = new TestRestTemplate(restTemplate, "user", "test");
+//		restTemplate.setMessageConverters(messageConverters);
+		
+		
+//		template = new TestRestTemplate(restTemplate, "user", "test");
+		template = new TestRestTemplate("user", "test");
 		System.out.println("Invoked before each test method");
 	}
 
@@ -72,7 +75,7 @@ public class ReportControllerTest {
 	@Test
 	public void shouldLogValidationErrors() throws Exception {
 		String RCVX_ENDPOINT = "http://localhost:" + port + "/report/SmartTableRCVX";
-		ResponseEntity<ReportSmartRCVXTemplate> response = restTemplate.exchange(RCVX_ENDPOINT, HttpMethod.GET, null,
+		ResponseEntity<ReportSmartRCVXTemplate> response = template.exchange(RCVX_ENDPOINT, HttpMethod.GET, null,
 				reportSmartRCVXTemplateTypeReference);
 		ReportSmartRCVXTemplate reportSmartRCVXTemplate = response.getBody();
 		reportSmartRCVXTemplate = response.getBody();

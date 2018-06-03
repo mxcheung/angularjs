@@ -1,8 +1,11 @@
 package com.maxcheung.models;
 
 import java.util.Map;
-
+//https://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/Name.html
 public class DataTable extends AbsDataTable {
+	
+	
+	private String title;
 
 	private Map<String, CellValue> rowTotals;
 
@@ -34,4 +37,13 @@ public class DataTable extends AbsDataTable {
 		this.grandTotal = grandTotal;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	
 }
