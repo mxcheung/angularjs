@@ -10,6 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Table;
@@ -20,16 +23,25 @@ import com.maxcheung.models.CellValue;
 import com.maxcheung.models.CellValueDefault;
 import com.maxcheung.models.DataTable;
 import com.maxcheung.models.FormatType;
+import com.maxcheung.util.spel.SpelUtil;
+
 
 @Service
 public class DataTableServiceImpl implements DataTableService {
 
 	// DozerBeanMapper mapper = new DozerBeanMapper();
 	private final CellValueConverter converter;
+	
+    private ExpressionParser parser;
+
+    private final StandardEvaluationContext itemContext;
 
 	@Autowired
 	public DataTableServiceImpl(CellValueConverter converter) {
 		this.converter = converter;
+        itemContext = SpelUtil.getContext();
+        parser = new SpelExpressionParser();
+
 	}
 
 	@Override

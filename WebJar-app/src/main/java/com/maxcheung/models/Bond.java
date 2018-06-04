@@ -10,7 +10,8 @@ public class Bond    {
 	private BigDecimal salary;
 	private Long age;
 	private LocalDate dob;
-	
+	private LocalDate issueDate;
+	private LocalDate expiryDate;
 	
 	public String getId() {
 		return id;
@@ -42,7 +43,18 @@ public class Bond    {
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-
+	public LocalDate getIssueDate() {
+		return issueDate;
+	}
+	public void setIssueDate(LocalDate issueDate) {
+		this.issueDate = issueDate;
+	}
+	public LocalDate getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(LocalDate expiryDate) {
+		this.expiryDate = expiryDate;
+	}
 	
-	
+		
 }
