@@ -212,3 +212,8 @@ flotchart{
     width:400px;
     height:200px;
 }
+
+
+.cashmgmt-small-modal-window .modal-dialog {
+  width: 35%;
+}
