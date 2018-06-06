@@ -1,0 +1,93 @@
+<h1>FX Calculator Input</h1>
+
+
+<div class="modal-header model-grey-color">
+	<button type="button" class="close" data-dismiss="modal"
+		aria-label="Close" ng-click="cancelModal()">
+		<span aria-hidden="true">×</span>
+	</button>
+	<h4 class="modal-title">Edit View : {{employeeData.Name}}</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Buy Amount <sup
+				class="sup-color">*</sup></label>
+
+			<div class="col-sm-8">
+				<input type="text" ng-model="buyAmount"   ng-change="getSellAmount()"
+					placeholder="Buy Amount" class="form-control">
+			</div>
+			<span class="help-button" uib-tooltip="Employee name"
+				tooltip-placement="left">?</span>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Rate <sup
+				class="sup-color">*</sup></label>
+
+			<div class="col-sm-8">
+				<input type="text" ng-model="fxrate"  ng-change="getSellAmount()"
+					placeholder="Fx Rate" class="form-control">
+			</div>
+			<span class="help-button" uib-tooltip="Please enter emp age"
+				tooltip-placement="left">?</span>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Sell Amount <sup
+				class="sup-color">*</sup></label>
+
+			<div class="col-sm-8">
+				<input type="text" ng-model="sellAmount"  ng-change="getBuyAmount()"
+					placeholder="Sell Amount" class="form-control">
+			</div>
+			<span class="help-button" uib-tooltip="Employee name"
+				tooltip-placement="left">?</span>
+		</div>
+		<div ng-if="exceedLimit()"  class="form-group alert-danger">
+
+			<div  class="form-group">
+				<label class="col-sm-3 control-label">Limit Exceeded <sup
+					class="sup-color">*</sup></label>
+	
+				<div class="col-sm-8">
+					<input type="text" ng-model="limit"
+						placeholder="Limit" class="form-control alert-danger">
+				</div>
+				<span class="help-button" uib-tooltip="Please enter emp age"
+					tooltip-placement="left">?</span>
+			</div>
+	
+			<div class="form-group">
+				<label class="col-sm-3 control-label">USD Equivalent Amount <sup
+					class="sup-color">*</sup></label>
+				<div class="col-sm-8">
+					<input type="text" ng-model="usdAmount"
+						placeholder="Employee Salary" class="form-control alert-danger">
+				</div>
+				<span class="help-button" uib-tooltip="Please enter emp salary"
+					tooltip-placement="left">?</span>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">Approver <sup
+					class="sup-color">*</sup></label>
+	
+				<div class="col-sm-8">
+					<input type="text" ng-model="salesData.Sales.value"
+						placeholder="Limit approver" class="form-control alert-danger">
+				</div>
+				<span class="help-button" uib-tooltip="Please enter limit approver"
+					tooltip-placement="left">?</span>
+			</div>
+
+
+		</div>
+	</form>
+</div>
+<div class="modal-footer model-grey-color">
+	<button class="btn btn-success" ng-click="updateEmp()">
+		<i class="glyphicon glyphicon-floppy-save"></i> Update
+	</button>
+	<button class="btn btn-danger" ng-click="cancelModal()">
+		<i class="glyphicon glyphicon-remove"></i> Close
+	</button>
+</div>
