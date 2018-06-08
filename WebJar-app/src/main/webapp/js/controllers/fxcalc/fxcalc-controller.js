@@ -20,6 +20,7 @@ app.controller('FxCalcController', function($scope, $http, $location,
 	$scope.limit = 10000;
 
 	$scope.tradeDate = "2008-08-07";
+	$scope.expiryDate = "2008-08-17";
 	
 	FxCalcService.getcalcBuyAmount()
 	 .then(function success(response) {
@@ -63,6 +64,7 @@ app.controller('FxCalcController', function($scope, $http, $location,
         $scope.transaction = {};
         $scope.transaction.id = 125;
         $scope.transaction.tradeDate = $scope.tradeDate;
+        $scope.transaction.expiryDate = $scope.expiryDate;
         $scope.transaction.buyAmount = $scope.buyAmount;
         $scope.transaction.sellAmount = $scope.sellAmount;
         $scope.transaction.fxrate = $scope.fxrate;

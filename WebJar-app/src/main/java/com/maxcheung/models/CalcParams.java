@@ -24,6 +24,7 @@ public class CalcParams {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate tradeDate;
 	
+	private LocalDate expiryDate;
 	
 	private BigDecimal buyAmount;
 	private BigDecimal sellAmount;
@@ -40,6 +41,12 @@ public class CalcParams {
 	}
 	public void setTradeDate(LocalDate tradeDate) {
 		this.tradeDate = tradeDate;
+	}
+	public LocalDate getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(LocalDate expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 	public BigDecimal getBuyAmount() {
 		return buyAmount;
@@ -59,7 +66,6 @@ public class CalcParams {
 	public void setFxrate(BigDecimal fxrate) {
 		this.fxrate = fxrate;
 	}
-	
 	
 	
 	

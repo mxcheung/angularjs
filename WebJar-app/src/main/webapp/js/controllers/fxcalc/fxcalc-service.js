@@ -23,7 +23,10 @@ app.service('FxCalcService', function($http) {
     	var requestData = JSON.parse(JSON.stringify(depositData));
     	requestData['buyAmount'] = depositData.buyAmount.toString().replace(/,/g, '');
     	requestData['tradeDate'] = this.formatDateForRequest(depositData.tradeDate);
-    	return $http.post("./fxcalc/update-buy-amount/"+depositData.id, requestData);       	
+    	requestData['expiryDate'] = this.formatDateForRequest(depositData.expiryDate);
+    	 var json = JSON.stringify(depositData);
+    	return $http.post("./fxcalc/update-buy-amount/"+depositData.id, requestData);  
+    	
 	}
 	
 	this.formatDateForRequest = function(date) {
