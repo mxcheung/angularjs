@@ -1,5 +1,5 @@
 app.controller('FxCalcController', function($scope, $http, $location,
-		FxCalcService, ModalService, $route, $routeParams) {
+		FxCalcService, ModalService,  $route, $routeParams) {
 	// Retrieve selected task
 	$scope.greeting = "Hello Smart World2";
 
@@ -19,7 +19,7 @@ app.controller('FxCalcController', function($scope, $http, $location,
 	$scope.data2 = {};
 	$scope.limit = 10000;
 
-
+	$scope.tradeDate = "2008-08-07";
 	
 	FxCalcService.getcalcBuyAmount()
 	 .then(function success(response) {
@@ -56,7 +56,23 @@ app.controller('FxCalcController', function($scope, $http, $location,
     		});
     	}
     };
+
     
+    
+    $scope.updateBuyAmount = function() {
+        $scope.transaction = {};
+        $scope.transaction.id = 125;
+        $scope.transaction.tradeDate = $scope.tradeDate;
+        $scope.transaction.buyAmount = $scope.buyAmount;
+        $scope.transaction.sellAmount = $scope.sellAmount;
+        $scope.transaction.fxrate = $scope.fxrate;
+        FxCalcService.updateBuyAmount($scope.transaction)
+        .then(function(response) {
+        	$scope.response = response;
+        });
+	}
+	    
+
     $scope.exceedLimit = function() {
        return ($scope.usdAmount > $scope.limit );
     };

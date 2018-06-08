@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,5 +34,11 @@ public class FxCalcController {
 		return calcParams;
 	}
 
+	@RequestMapping(method = RequestMethod.POST, path = "/update-buy-amount/{txnId}")
+	public CalcParams updateBuyAmount(@PathVariable Long txnId, @RequestBody CalcParams calcParams) {
+		BigDecimal buyAmount = calcParams.getSellAmount().divide(calcParams.getFxrate(), 12, RoundingMode.HALF_UP);
+		calcParams.setBuyAmount(buyAmount);		
+		return calcParams;
+	}
 	
 }

@@ -12,14 +12,15 @@
  */
 package com.maxcheung;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 @Configuration
 @ComponentScan
@@ -32,10 +33,15 @@ public class App {
 
 	}
 
-	@Bean
-	ObjectMapper customizeJacksonConfiguration() {
-		ObjectMapper om = new ObjectMapper();
-		om.registerModule(new GuavaModule());
-		return om;
+//	@Bean
+//ObjectMapper objectMapper	
+	
+	@Autowired 
+	public void configureJackson(@Autowired ObjectMapper objectMapper) {
+	//	ObjectMapper om = new ObjectMapper();
+		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+		objectMapper.registerModule(new GuavaModule());
 	}
+	
+	
 }

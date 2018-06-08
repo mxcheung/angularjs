@@ -13,13 +13,34 @@
 package com.maxcheung.models;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class CalcParams {
 
+	private Long id;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate tradeDate;
+	
+	
 	private BigDecimal buyAmount;
 	private BigDecimal sellAmount;
 	private BigDecimal fxrate;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public LocalDate getTradeDate() {
+		return tradeDate;
+	}
+	public void setTradeDate(LocalDate tradeDate) {
+		this.tradeDate = tradeDate;
+	}
 	public BigDecimal getBuyAmount() {
 		return buyAmount;
 	}
@@ -38,7 +59,10 @@ public class CalcParams {
 	public void setFxrate(BigDecimal fxrate) {
 		this.fxrate = fxrate;
 	}
-
+	
+	
+	
+	
 
 	
 	
