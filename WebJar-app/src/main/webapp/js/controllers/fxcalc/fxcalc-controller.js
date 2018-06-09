@@ -1,5 +1,14 @@
 app.controller('FxCalcController', function($scope, $http, $location,
 		FxCalcService, ModalService,  $route, $routeParams) {
+
+
+
+
+    $scope.$watch(fxTranPageScopeChanged, function() {
+    	$scope.lastModified = new Date();
+    });
+
+
 	// Retrieve selected task
 	$scope.greeting = "Hello Smart World2";
 
@@ -21,7 +30,12 @@ app.controller('FxCalcController', function($scope, $http, $location,
 
 	$scope.tradeDate = "2008-08-07";
 	$scope.expiryDate = "2008-08-17";
-	
+	$scope.createdBy = "abcd";
+	$scope.verifiedBy = "user2";
+	$scope.buyAmount = 1000;
+	$scope.sellAmount = 1000;
+	$scope.fxrate = 0.5;
+
 	FxCalcService.getcalcBuyAmount()
 	 .then(function success(response) {
 		 $scope.buyAmount = response.data;
@@ -32,7 +46,7 @@ app.controller('FxCalcController', function($scope, $http, $location,
 		$scope.error = rejection;
 	});
 
-	   
+
     $scope.getSellAmount = function() {
     	var buyAmount = $scope.buyAmount;
     	var fxrate = $scope.fxrate;
@@ -43,9 +57,9 @@ app.controller('FxCalcController', function($scope, $http, $location,
     			$scope.usdAmount = response.sellAmount;
     		});
     	}
-    	
+
     };
-    
+
     $scope.getBuyAmount = function() {
     	var sellAmount = $scope.sellAmount;
     	var fxrate = $scope.fxrate;
@@ -58,8 +72,8 @@ app.controller('FxCalcController', function($scope, $http, $location,
     	}
     };
 
-    
-    
+
+
     $scope.updateBuyAmount = function() {
         $scope.transaction = {};
         $scope.transaction.id = 125;
@@ -73,16 +87,49 @@ app.controller('FxCalcController', function($scope, $http, $location,
         	$scope.response = response;
         });
 	}
-	    
+
+
+    $scope.verify = function() {
+        $scope.transaction = {};
+        $scope.transaction.id = 125;
+        $scope.transaction.tradeDate = $scope.tradeDate;
+        $scope.transaction.expiryDate = $scope.expiryDate;
+        $scope.transaction.buyAmount = $scope.buyAmount;
+        $scope.transaction.sellAmount = $scope.sellAmount;
+        $scope.transaction.fxrate = $scope.fxrate;
+        $scope.transaction.createdBy = $scope.createdBy;
+        FxCalcService.verify($scope.transaction)
+	   	 .then(function success(response) {
+        	$scope.response = response;
+        	if (response.status == 200) {
+            	$scope.verifiedBy = response.data.verifiedBy;
+            }
+	   	 })
+	   	.catch(function error(rejection) {
+	   		$scope.error = rejection;
+			 console.log('error==>');
+			 console.log(rejection);
+	   	});
+
+        
+	}
 
     $scope.exceedLimit = function() {
        return ($scope.usdAmount > $scope.limit );
     };
-    
-    
-    
+
+
+
 });
 
 
 
 
+/*
+ * Works out whether the page scope has changed and a display refresh is
+ * required
+ */
+function fxTranPageScopeChanged($scope) {
+    return " Deposit Buy Amount: " + $scope.buyAmount +
+    	   " Display Sell Amount: " + $scope.sellAmount;
+};

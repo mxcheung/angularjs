@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 public class CalcParams {
 
@@ -29,6 +30,10 @@ public class CalcParams {
 	private BigDecimal buyAmount;
 	private BigDecimal sellAmount;
 	private BigDecimal fxrate;
+	
+	private String createdBy;
+	private String verifiedBy;
+	private boolean verified;
 	
 	public Long getId() {
 		return id;
@@ -66,10 +71,25 @@ public class CalcParams {
 	public void setFxrate(BigDecimal fxrate) {
 		this.fxrate = fxrate;
 	}
-	
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public String getVerifiedBy() {
+		return verifiedBy;
+	}
+	public void setVerifiedBy(String verifiedBy) {
+		this.verifiedBy = verifiedBy;
+	}
 	
 	
 
+	@PreAuthorize("this.createdBy != principal.username")
+	public void verify() {
+		boolean verified = true;
+	}	
 	
 	
 }

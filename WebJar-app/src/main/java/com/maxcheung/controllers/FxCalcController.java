@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,5 +41,18 @@ public class FxCalcController {
 		calcParams.setBuyAmount(buyAmount);		
 		return calcParams;
 	}
-	
+
+	@RequestMapping(method = RequestMethod.POST, path = "/verify/{txnId}")
+	@PreAuthorize("this.createdBy != principal.username")
+	public CalcParams verify(@PathVariable Long txnId, @RequestBody CalcParams calcParams) throws UnauthorisedVerifierException {
+		calcParams.verify();
+		calcParams.setVerifiedBy("def");
+		if (calcParams.getCreatedBy().equalsIgnoreCase(calcParams.getVerifiedBy())) {
+			throw new UnauthorisedVerifierException("user not authorised");
+			
+		}
+		
+		return calcParams;
+	}
+
 }

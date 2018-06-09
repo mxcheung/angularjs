@@ -10,14 +10,14 @@
 </div>
 <div class="modal-body">
 	<form class="form-horizontal" role="form">
-		
-				
+
+
 		<div class="form-group">
 			<label class="col-sm-3 control-label">Trade Date<sup
 				class="sup-color">*</sup></label>
 
 			<div class="col-sm-8">
-				<input type="text" ng-model="tradeDate" 
+				<input type="text" ng-model="tradeDate"
 					placeholder="Trade Date" class="form-control">
 			</div>
 			<span class="help-button" uib-tooltip="Employee name"
@@ -29,13 +29,13 @@
 				class="sup-color">*</sup></label>
 
 			<div class="col-sm-8">
-				<input type="text" ng-model="expiryDate" 
+				<input type="text" ng-model="expiryDate"
 					placeholder="Trade Date" class="form-control">
 			</div>
 			<span class="help-button" uib-tooltip="Employee name"
 				tooltip-placement="left">?</span>
 		</div>
-	
+
 		<div class="form-group">
 			<label class="col-sm-3 control-label">Buy Amount <sup
 				class="sup-color">*</sup></label>
@@ -74,7 +74,7 @@
 			<div  class="form-group">
 				<label class="col-sm-3 control-label">Limit Exceeded <sup
 					class="sup-color">*</sup></label>
-	
+
 				<div class="col-sm-8">
 					<input type="text" ng-model="limit"
 						placeholder="Limit" class="form-control alert-danger">
@@ -82,7 +82,7 @@
 				<span class="help-button" uib-tooltip="Please enter emp age"
 					tooltip-placement="left">?</span>
 			</div>
-	
+
 			<div class="form-group">
 				<label class="col-sm-3 control-label">USD Equivalent Amount <sup
 					class="sup-color">*</sup></label>
@@ -96,7 +96,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Approver <sup
 					class="sup-color">*</sup></label>
-	
+
 				<div class="col-sm-8">
 					<input type="text" ng-model="salesData.Sales.value"
 						placeholder="Limit approver" class="form-control alert-danger">
@@ -104,12 +104,43 @@
 				<span class="help-button" uib-tooltip="Please enter limit approver"
 					tooltip-placement="left">?</span>
 			</div>
-
-
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Last Modified<sup
+				class="sup-color">*</sup></label>
+			<div class="col-sm-8">
+				<input type="text" ng-model="lastModified"
+					placeholder="Last Modified" class="form-control">
+			</div>
+			<span class="help-button" uib-tooltip="Employee name"
+				tooltip-placement="left">?</span>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Created By<sup
+				class="sup-color">*</sup></label>
+			<div class="col-sm-8">
+				<input type="text" ng-model="createdBy"
+					placeholder="Last Modified" class="form-control">
+			</div>
+			<span class="help-button" uib-tooltip="Employee name"
+				tooltip-placement="left">?</span>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Verified By<sup
+				class="sup-color">*</sup></label>
+			<div class="col-sm-8">
+				<input type="text" ng-model="verifiedBy"
+					placeholder="Last Modified" class="form-control">
+			</div>
+			<span class="help-button" uib-tooltip="Employee name"
+				tooltip-placement="left">?</span>
 		</div>
 	</form>
 </div>
 <div class="modal-footer model-grey-color">
+	<button class="btn btn-success" ng-click="verify()">
+		<i class="glyphicon glyphicon-floppy-save"></i> Verify
+	</button>
 	<button class="btn btn-success" ng-click="updateBuyAmount()">
 		<i class="glyphicon glyphicon-floppy-save"></i> Update
 	</button>
