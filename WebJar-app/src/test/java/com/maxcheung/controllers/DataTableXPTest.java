@@ -67,6 +67,7 @@ public class DataTableXPTest {
 	}
 
 	@Test
+	
 	public void guava_table_example () throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new GuavaModule());
@@ -96,16 +97,14 @@ public class DataTableXPTest {
         TypeReference<HashMap<Integer, HashMap<String, Workout>>> typeRef 
         = new TypeReference<HashMap<Integer, HashMap<String, Workout>>>() {};
         
-        Map<String, Map<Integer, Workout>> map = mapper.readValue(json, typeRef);
+  //      Map<String, Map<Integer, Workout>> map = mapper.readValue(json, typeRef);
         
 	//    ImmutableTable dataTable2 = mapper.readValue(json, ImmutableTable.class);
-	    json = mapper.writeValueAsString(table);
+	//    json = mapper.writeValueAsString(table);
 	    
 	    // for each row key
 	    for (Integer key : table.rowKeySet()) {
-
-//	        logger.info("Person: " + key);
-
+//	        logger.info("key: " + key);
 	        for (Entry<String, Workout> row : table.row(key).entrySet()) {
 	//            logger.info("Workout name: " + row.getKey() + " for elapsed time of " + row.getValue().getElapsedTime());
 	        }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.maxcheung.models.CalcParams;
@@ -21,18 +22,22 @@ public class FxCalcController {
 	private static final Logger LOG = LoggerFactory.getLogger(FxCalcController.class);
 
 	@RequestMapping(method = RequestMethod.GET, path = "/calc-sell-amount")
-	public CalcParams calcSellAmount(CalcParams calcParams) {
-		BigDecimal sellAmount = calcParams.getBuyAmount().multiply(calcParams.getFxrate());
-		calcParams.setSellAmount(sellAmount);		
-		return calcParams;
+	public BigDecimal calcSellAmount(
+			@RequestParam("buyAmount") BigDecimal buyAmount, 
+			@RequestParam("fxrate") BigDecimal fxrate) {
+		BigDecimal sellAmount = buyAmount.multiply(fxrate);
+		sellAmount = sellAmount.setScale(2, RoundingMode.HALF_EVEN);
+		return sellAmount;
 	}
 
 
 	@RequestMapping(method = RequestMethod.GET, path = "/calc-buy-amount")
-	public CalcParams calcBuyAmount(CalcParams calcParams) {
-		BigDecimal buyAmount = calcParams.getSellAmount().divide(calcParams.getFxrate(), 12, RoundingMode.HALF_UP);
-		calcParams.setBuyAmount(buyAmount);		
-		return calcParams;
+	public BigDecimal calcBuyAmount(
+			@RequestParam("sellAmount") BigDecimal sellAmount, 
+			@RequestParam("fxrate") BigDecimal fxrate ) {
+		BigDecimal buyAmount = sellAmount.divide(fxrate, 12, RoundingMode.HALF_UP);
+		buyAmount = buyAmount.setScale(2, RoundingMode.HALF_EVEN);
+		return buyAmount;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "/update-buy-amount/{txnId}")

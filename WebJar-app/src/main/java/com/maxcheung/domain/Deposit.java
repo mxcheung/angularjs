@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -18,6 +20,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 /**
  * Entity for transactions.
  */
+@Entity
+@Table(name = "deposit")
 public class Deposit implements java.io.Serializable {
 
     private static final long serialVersionUID = -7565529459957331673L;

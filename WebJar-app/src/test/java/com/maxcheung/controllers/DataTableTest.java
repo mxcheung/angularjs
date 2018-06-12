@@ -117,7 +117,7 @@ public class DataTableTest {
         TypeReference<HashMap<Integer, HashMap<String, Workout>>> typeRef 
         = new TypeReference<HashMap<Integer, HashMap<String, Workout>>>() {};
         
-        Map<String, Map<Integer, Workout>> map = mapper.readValue(json, typeRef);
+     //   Map<String, Map<Integer, Workout>> map = mapper.readValue(json, typeRef);
         
 	//    ImmutableTable dataTable2 = mapper.readValue(json, ImmutableTable.class);
 	    json = mapper.writeValueAsString(table);

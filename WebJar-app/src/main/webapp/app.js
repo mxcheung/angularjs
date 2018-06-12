@@ -59,6 +59,11 @@ var app = angular.module('ToDoListApp', [
 					controller: 'FxCalcController',
 					templateUrl: '/views/fxcalc/fxcalc.html'
 				})
+				.when('/cashtransactions',
+				{
+					controller: 'CashTransactionController',
+					templateUrl: '/views/cashtransaction/cashtransaction-list.html'
+				})
 				.when('/sales',
 				{
 					controller: 'SalesController',

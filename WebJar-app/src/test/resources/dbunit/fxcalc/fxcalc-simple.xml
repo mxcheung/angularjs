@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <deposit 
+        id = "1" 
+        currency = "AUD" 
+        starting_amount = "100000.00" 
+        open_date = "2020-01-01" 
+        close_date = "2020-01-03" 
+        central_counter_party = "MOKDHK" 
+        bank_rate = "0.05" 
+        created_on = "2020-01-01 00:00:00"
+        transaction_date = "2020-01-01" 
+        nostro = "Account1" 
+        client_location = "MOKD HK HOUSE"
+        is_deleted = "false" />
+        
+    <deposit 
+        id = "2" 
+        currency = "AUD" 
+        starting_amount = "200000.00" 
+        open_date = "2020-01-01" 
+        close_date = "2020-01-03" 
+        central_counter_party = "MOKDHK" 
+        bank_rate = "0.05" 
+        created_on = "2020-01-01 00:00:00" 
+        transaction_date = "2020-01-01"
+        nostro = "Account2" 
+        client_location = "MOKD HK HOUSE"
+        is_deleted = "false" />
+        
+    <deposit 
+        id = "3" 
+        currency = "JPY" 
+        starting_amount = "300000" 
+        open_date = "2020-01-01" 
+        close_date = "2020-01-03" 
+        central_counter_party = "MOKDHK" 
+        bank_rate = "0.05" 
+        created_on = "2020-01-01 00:00:00" 
+        transaction_date = "2020-01-01"
+        nostro = "Account3" 
+        client_location = "MOKD HK HOUSE"
+        is_deleted = "false" />      
+</dataset>

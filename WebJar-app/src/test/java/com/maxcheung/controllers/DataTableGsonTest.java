@@ -63,7 +63,7 @@ public class DataTableGsonTest {
 		String json = mapper.writeValueAsString(dataTable);
 		json = mapper.writeValueAsString(dataTable);
 //		DataTable dataTable2 = mapper.readValue(json, DataTable.class);
-		DataTable dataTable2 = gson.fromJson(json, DataTable.class);
+//		DataTable dataTable2 = gson.fromJson(json, DataTable.class);
 	//	dataTable2 = mapper.readValue(json, DataTable.class);
  
 	}
@@ -98,10 +98,10 @@ public class DataTableGsonTest {
         TypeReference<HashMap<Integer, HashMap<String, Workout>>> typeRef 
         = new TypeReference<HashMap<Integer, HashMap<String, Workout>>>() {};
         
-        Map<String, Map<Integer, Workout>> map = mapper.readValue(json, typeRef);
+ //       Map<String, Map<Integer, Workout>> map = mapper.readValue(json, typeRef);
         
 	//    ImmutableTable dataTable2 = mapper.readValue(json, ImmutableTable.class);
-	    json = mapper.writeValueAsString(table);
+	//    json = mapper.writeValueAsString(table);
 	    
 	    // for each row key
 	    for (Integer key : table.rowKeySet()) {

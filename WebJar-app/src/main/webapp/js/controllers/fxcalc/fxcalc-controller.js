@@ -38,9 +38,7 @@ app.controller('FxCalcController', function($scope, $http, $location,
 
 	FxCalcService.getcalcBuyAmount()
 	 .then(function success(response) {
-		 $scope.buyAmount = response.data;
-		 console.log('newemployees==>');
-		 console.log($scope.newemployees);
+		 $scope.buyAmount = response;
 	 })
 	.catch(function error(rejection) {
 		$scope.error = rejection;
@@ -53,8 +51,8 @@ app.controller('FxCalcController', function($scope, $http, $location,
     	if ( (buyAmount) && (fxrate)) {
     		FxCalcService.getcalcSellAmount(buyAmount, fxrate)
     		.then(function(response){
-    			$scope.sellAmount = response.sellAmount;
-    			$scope.usdAmount = response.sellAmount;
+    			$scope.sellAmount = response;
+    			$scope.usdAmount = response;
     		});
     	}
 
@@ -66,8 +64,8 @@ app.controller('FxCalcController', function($scope, $http, $location,
     	if ( (sellAmount) && (fxrate)) {
     		FxCalcService.getcalcBuyAmount(sellAmount, fxrate)
     		.then(function(response){
-    			$scope.buyAmount = response.buyAmount;
-    			$scope.usdAmount = response.sellAmount;
+    			$scope.buyAmount = response;
+    			$scope.usdAmount = response;
     		});
     	}
     };

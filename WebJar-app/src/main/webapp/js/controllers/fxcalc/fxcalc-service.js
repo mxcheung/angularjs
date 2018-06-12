@@ -10,8 +10,11 @@ app.service('FxCalcService', function($http) {
 
 	this.getcalcBuyAmount = function(sellAmount,fxrate ) {
        	return $http.get("./fxcalc/calc-buy-amount", 
-            	{params: {sellAmount:sellAmount,
-            		fxrate:fxrate}})
+            	{params: {
+	            		sellAmount:sellAmount,
+	            		fxrate:fxrate
+            			}
+            	})
             	.then(function(response) {
             		var lookupData = response.data;
             		return lookupData;
