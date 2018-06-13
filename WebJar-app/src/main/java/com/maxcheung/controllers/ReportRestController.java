@@ -2,12 +2,16 @@ package com.maxcheung.controllers;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.apache.commons.math3.random.RandomDataGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +91,7 @@ public class ReportRestController {
 		return dest;
 	}
 
+	
 	@RequestMapping(method = RequestMethod.GET, path = "/highchart2")
 	public Table<String, String, CellValue> getHighCartData2() {
 		LOG.info("Get getHighCartData");
@@ -251,5 +256,53 @@ public class ReportRestController {
 	    return "";
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, path = "/financialchartdata")
+	public Table<String, String, CellValue> getFinancialChartData(@RequestParam("formatType") FormatType formatTypeParam) {
+		LOG.info("Get getHighCartData");
+		// CellType cellType = CellType.valueOf(cellTypeParam);
+		// CellType.HIGHCHARTPIE
+		// CellType.HIGHCHARTBAR
+		Table<String, String, CellValue> table = getFinancialTable();
+		Table<String, String, CellValue> dest = dataTableService.transformTable(table, formatTypeParam);
+		return dest;
+	}
+
+	private Table<String, String, CellValue> getFinancialTable() {
+	//	LocalDate start = LocalDate.now();
+//		LocalDate end = LocalDate.now().plusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
+			LocalDate start = LocalDate.of(2018, 1, 1);
+		LocalDate end = LocalDate.of(2018, 6, 13);
+		List<LocalDate> dates = Stream.iterate(start, date -> date.plusDays(1))
+		    .limit(ChronoUnit.DAYS.between(start, end))
+		    .collect(Collectors.toList());
+		
+		
+		List<CellValue> data = new ArrayList<CellValue>();
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		 
+		 long leftLimit = 25L;
+		 long rightLimit = 90L;
+		 long generatedLong = new RandomDataGenerator().nextLong(leftLimit, rightLimit);
+		 
+		for (LocalDate date : dates) {
+			String formatDateTime = date.format(formatter);
+			generatedLong = new RandomDataGenerator().nextLong(leftLimit, rightLimit);
+			data.add(createCell(formatDateTime, "Series1", BigDecimal.valueOf(generatedLong)));
+			data.add(createCell(formatDateTime, "Series2", BigDecimal.valueOf(45)));
+			data.add(createCell(formatDateTime, "Series3", BigDecimal.valueOf(90)));
+		}
+		
+		data.add(createCell("Chrome", "Percentage", BigDecimal.valueOf(24.03)));
+		data.add(createCell("Firefox", "Percentage", BigDecimal.valueOf(10.38)));
+		data.add(createCell("Safari", "Percentage", BigDecimal.valueOf(4.77)));
+		data.add(createCell("Opera", "Percentage", BigDecimal.valueOf(0.91)));
+		data.add(createCell("Proprietary or Undetectable", "Percentage", BigDecimal.valueOf(0.2)));
+		Table<String, String, CellValue> table = Tables.newCustomTable(new LinkedHashMap<>(), LinkedHashMap::new);
+		for (CellValue cellValue : data) {
+			table.put(cellValue.getRowKey(), cellValue.getColumnKey(), cellValue);
+		}
+		return table;
+	}
+
 	
 }
