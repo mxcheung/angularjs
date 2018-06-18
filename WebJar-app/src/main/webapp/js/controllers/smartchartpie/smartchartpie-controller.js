@@ -129,6 +129,33 @@ app.controller('SmartChartPieController', function($scope, $http, $location,
 
 	 $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
 	 $scope.data = [300, 500, 100];
+
+	 
+	 $scope.options = {
+			  title: {
+		            display: true,
+		            text: 'Finance Chart Title'
+		       },
+			   legend: {
+				   position : 'top',
+		            display: true,
+		            labels: {
+		                fontColor: 'rgb(255, 99, 132)'
+		            }
+		        }
+			  };	
+	 
+	
+	   $scope.datasetOverride1 = { 
+			   backgroundColor:  ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.7)', 'rgba(0, 0, 255, 0.5)'],
+			   borderColor: ['rgba(0, 255, 0, 1)', 'rgba(0, 255, 0, 1)'], 
+			   borderWidth: [2, 2, 2], 
+			   hoverBorderColor: ['rgba(0, 255, 0, 1)', 'rgba(0, 255, 0, 1)'], 
+			   hoverBorderWidth: [1, 1]
+	   	}
+	   ;
+	   
+	   
 });
 
 

@@ -17,6 +17,8 @@ app.controller('SmartChartFinancialXController', function($scope, $http, $locati
 		.then(function(response){
 			$scope.chartdata = response.data;
 			
+			var length = Object.keys($scope.chartdata).length;
+			var i = 0;
 //			$scope.labels = Object.keys($scope.chartdata);
 			$scope.labels = [];
 			$scope.series1 = [];
