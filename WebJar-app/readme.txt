@@ -12,3 +12,6 @@ https://github.com/lorenzodee/experiments/tree/master/maker-checker
 
 
 http://www.baeldung.com/get-user-in-spring-security
+
+
+https://refactoring.guru/design-patterns/proxy/java/example

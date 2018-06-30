@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ExpressionParser;
@@ -176,6 +177,9 @@ public class DataTableServiceImpl implements DataTableService {
 
 	public Table<String, String, CellValue> initialise(List<String> rowKeys, String columnKey, CellValue value) {
 		Table<String, String, CellValue> table = TreeBasedTable.create();
+		
+	
+		
 		for (String rowKey : rowKeys) {
 			table.put(rowKey, columnKey, value);
 		}
@@ -184,7 +188,7 @@ public class DataTableServiceImpl implements DataTableService {
 
 	private CellValue getNewBalance(Table<String, String, CellValue> table, CellValue moneyCell) {
 		CellValue existingMoneyCell = table.get(moneyCell.getRowKey(), moneyCell.getColumnKey());
-		if (existingMoneyCell == null) {
+		if (! table.contains(moneyCell.getRowKey(), moneyCell.getColumnKey())) {
 			existingMoneyCell = new CellValueDefault();
 		}
 		existingMoneyCell.setCellValue(existingMoneyCell.getBigDecimalValue().add(moneyCell.getBigDecimalValue()));
