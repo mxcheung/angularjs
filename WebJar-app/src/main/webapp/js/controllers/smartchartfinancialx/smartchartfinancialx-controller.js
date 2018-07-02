@@ -29,13 +29,16 @@ app.controller('SmartChartFinancialXController', function($scope, $http, $locati
 				  var  row = $scope.chartdata[key];
 				  if (row["Series1"]) {
 					  $scope.labels.push(key);
-					  $scope.series1.push(row["Series1"].value);
+					  $scope.series1.push(parseInt(row["Series1"].value));
 					  $scope.series2.push(row["Series2"].value);
 					  $scope.series3.push(row["Series3"].value);
 				  }
 			}
 			$scope.data =  [$scope.series1, $scope.series2, $scope.series3];
-		
+			$scope.suggestedMax = Math.max.apply(Math,$scope.series3) + 20;
+			$scope.suggestedMin = Math.min.apply(Math,$scope.series2) - 20;
+      	    $scope.options.scales.yAxes[0].ticks.suggestedMax = $scope.suggestedMax;
+      	    $scope.options.scales.yAxes[0].ticks.suggestedMin = $scope.suggestedMin;
 			$scope.loading = false;
 		
 		});
@@ -55,14 +58,14 @@ app.controller('SmartChartFinancialXController', function($scope, $http, $locati
 			  title: {
 		            display: true,
 		            text: 'Custom Chart Title'
-		       },
+		       		},
 			   legend: {
 				   position : 'right',
 		            display: true,
 		            labels: {
 		                fontColor: 'rgb(255, 99, 132)'
 		            }
-		        },
+			   },
 		        
 		        scales: {
 		        	xAxes: [{
@@ -77,13 +80,13 @@ app.controller('SmartChartFinancialXController', function($scope, $http, $locati
 							labelString: 'Closing price ($)'
 						},
 		                ticks: {
-		                    suggestedMin: 0,
-		                    suggestedMax: 100
+		                	suggestedMax: $scope.suggestedMax
 		                }
 		            }]
 		        }		        
 			  };	
 	$scope.data =  [$scope.series1, $scope.series2, $scope.series3];
+
     $scope.datasetOverride = [
 	      {
 	        label: "Series A",
