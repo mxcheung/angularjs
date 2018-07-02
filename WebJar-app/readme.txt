@@ -15,3 +15,8 @@ http://www.baeldung.com/get-user-in-spring-security
 
 
 https://refactoring.guru/design-patterns/proxy/java/example
+
+http://www.baeldung.com/java-download-file
+
+https://github.com/eugenp/tutorials/blob/master/spring-rest/src/main/java/com/baeldung/produceimage/controller/DataProducerController.java
+

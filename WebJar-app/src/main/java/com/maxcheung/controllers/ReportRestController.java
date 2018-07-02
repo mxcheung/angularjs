@@ -1,24 +1,28 @@
 package com.maxcheung.controllers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Table;
@@ -267,6 +271,16 @@ public class ReportRestController {
 		return dest;
 	}
 
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/get-file", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public @ResponseBody byte[] getFile() throws IOException {
+		LOG.info("Get getFile");
+		 InputStream in = getClass()
+			      .getResourceAsStream("/com/baeldung/produceimage/data.txt");
+			    return IOUtils.toByteArray(in);
+	}
+
+	
 	private Table<String, String, CellValue> getFinancialTable() {
 	//	LocalDate start = LocalDate.now();
 //		LocalDate end = LocalDate.now().plusMonths(1).with(TemporalAdjusters.lastDayOfMonth());
@@ -304,5 +318,6 @@ public class ReportRestController {
 		return table;
 	}
 
+	
 	
 }
