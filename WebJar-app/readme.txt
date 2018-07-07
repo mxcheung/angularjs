@@ -20,3 +20,6 @@ http://www.baeldung.com/java-download-file
 
 https://github.com/eugenp/tutorials/blob/master/spring-rest/src/main/java/com/baeldung/produceimage/controller/DataProducerController.java
 
+http://svn.apache.org/repos/asf/poi/trunk/src/examples/src/org/apache/poi/ss/examples/ToCSV.java
+
+https://stackoverflow.com/questions/38524942/guava-table-to-csv
