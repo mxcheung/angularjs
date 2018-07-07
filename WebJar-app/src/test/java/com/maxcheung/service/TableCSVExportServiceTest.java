@@ -1,5 +1,6 @@
 package com.maxcheung.service;
 
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class TableCSVExportServiceTest {
 	public void testWriteToCsv() throws Exception {
 		Appendable out = new StringBuilder();
 		DataTable table = getDataTable();
-		tableCSVExportService.tableToCSV(out, table.getTable());
+		tableCSVExportService.tableToCSV(table.getTable(), out);
 	}
 
 	public DataTable getDataTable() throws Exception {

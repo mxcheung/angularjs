@@ -7,9 +7,6 @@ import com.maxcheung.models.CellValue;
 
 public interface TableCSVExportService {
 
-
-	Appendable tableToCSV(Appendable appendable, Table<String, String, CellValue> table) throws IOException;
-
-//	Appendable tableToCSV(Table<String, String, CellValue> table);
+	void tableToCSV(Table<String, String, CellValue> table, Appendable writer) throws IOException;
 
 }

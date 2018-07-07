@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Table;
@@ -16,17 +15,11 @@ import com.maxcheung.models.CellValue;
 public class TableCSVExportServiceImpl implements TableCSVExportService {
 
 	@Override
-	public Appendable tableToCSV(Appendable appendable, Table<String, String, CellValue> table) throws IOException {
+	public void tableToCSV(Table<String, String, CellValue> table, Appendable appendable) throws IOException {
 		Table<String, String, String> graph = convertToCSVTable(table);
-		Appendable out = new StringBuilder();
-			final CSVPrinter printer = CSVFormat.EXCEL.print(appendable);
-			printer.printRecords(//
-					graph.rowMap().values()//
-							.stream()//
-							.map(x -> x.values())//
-							.collect(Collectors.toList()));
-		return appendable;
-
+	    CSVFormat.EXCEL.print(appendable).printRecords(
+				 graph.rowMap().values().stream()
+					.map(x -> x.values()).collect(Collectors.toList()));
 	}
 
 	private Table<String, String, String> convertToCSVTable(Table<String, String, CellValue> table) {

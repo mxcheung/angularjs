@@ -57,8 +57,7 @@ public class TableRestController {
 		String headerValue = String.format("attachment; filename=\"%s\"", fileName);
 		response.setContentType("text/csv");
 		response.setHeader(headerKey, headerValue);
-		PrintWriter printWriter = response.getWriter();
-		tableCSVExportService.tableToCSV(printWriter, table.getTable());
+		tableCSVExportService.tableToCSV(table.getTable(), response.getWriter());
 //		Appendable out = tableCSVExportService.tableToCSV(printWriter, table.getTable());
 //		 System.out.println(out);
 		// return out;
