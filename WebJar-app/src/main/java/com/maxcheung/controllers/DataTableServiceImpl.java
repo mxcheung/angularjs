@@ -82,6 +82,20 @@ public class DataTableServiceImpl implements DataTableService {
 		return rowTotals;
 	}
 
+	// get row where colX = 1
+	//@Override
+	public Map<String, Map<String, CellValue>> filterByColValue(Table<String, String, CellValue> table, String column, String colValue) {
+		Map<String, Map<String, CellValue>> rowMap = table.rowMap();
+		Set<String> rowKeys = table.rowKeySet();
+		for (String rowKey : rowKeys) {
+			 String cc = table.get(rowKey, column).getStringCellValue();
+			if ( cc != colValue) {
+				rowMap.remove(rowKey);
+			}
+		}
+		return rowMap;
+	}
+
 	@Override
 	public List<BigDecimal> convertToListAmounts(Table<String, String, CellValue> table) {
 		List<BigDecimal> amounts = table.values().stream().map(x -> x.getBigDecimalValue())

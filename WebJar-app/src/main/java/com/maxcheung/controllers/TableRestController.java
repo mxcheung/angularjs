@@ -14,9 +14,10 @@
 package com.maxcheung.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,16 +52,17 @@ public class TableRestController {
 	@RequestMapping(method = RequestMethod.GET, path = "/tableCSV", produces = "text/csv")
 	public void getCSV(HttpServletResponse response) throws IOException  {
 		DataTable table = getDataTable();
-		String fileName = "abc.csv";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		  String formatDateTime = now.format(formatter);
+
+		String fileName = "abc_" + formatDateTime + ".csv";
 
 		String headerKey = "Content-Disposition";
 		String headerValue = String.format("attachment; filename=\"%s\"", fileName);
 		response.setContentType("text/csv");
 		response.setHeader(headerKey, headerValue);
 		tableCSVExportService.tableToCSV(table.getTable(), response.getWriter());
-//		Appendable out = tableCSVExportService.tableToCSV(printWriter, table.getTable());
-//		 System.out.println(out);
-		// return out;
 	}
 
 	public DataTable getDataTable()  {
