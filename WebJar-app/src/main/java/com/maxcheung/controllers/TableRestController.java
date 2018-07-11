@@ -14,6 +14,7 @@
 package com.maxcheung.controllers;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +24,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +42,8 @@ import com.maxcheung.service.TableCSVExportService;
 @RequestMapping("/table")
 public class TableRestController {
 
+	private static final Logger LOG = LoggerFactory.getLogger(TableRestController.class);
+
 	@Autowired
 	private TableCSVExportService tableCSVExportService;
 
@@ -51,6 +56,7 @@ public class TableRestController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/tableCSV", produces = "text/csv")
 	public void getCSV(HttpServletResponse response) throws IOException  {
+		LOG.info("Get getCSV");
 		DataTable table = getDataTable();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
@@ -62,7 +68,9 @@ public class TableRestController {
 		String headerValue = String.format("attachment; filename=\"%s\"", fileName);
 		response.setContentType("text/csv");
 		response.setHeader(headerKey, headerValue);
-		tableCSVExportService.tableToCSV(table.getTable(), response.getWriter());
+		PrintWriter writer = response.getWriter();
+	//	StringWriter writer = new StringWriter();
+		tableCSVExportService.tableToCSV(table.getTable(), writer);
 	}
 
 	public DataTable getDataTable()  {
